@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { getThemeColors } from '../styles/themes';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMobileCTA, setShowMobileCTA] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
+  const colors = getThemeColors(theme);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,11 +40,10 @@ export function Navigation() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-[#F8F3EA]/95 backdrop-blur-md shadow-sm'
-            : 'bg-transparent'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        style={{
+          backgroundColor: isScrolled ? `${colors.background}f3` : 'transparent',
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
@@ -48,13 +51,13 @@ export function Navigation() {
             <Link to="/" className="flex flex-col">
               <span
                 className="font-['Great_Vibes'] text-3xl lg:text-4xl"
-                style={{ color: '#556B2F' }}
+                style={{ color: colors.primary }}
               >
                 Basilico
               </span>
               <span
                 className="text-xs tracking-[0.3em] uppercase"
-                style={{ color: '#6B6B6B', fontFamily: 'Inter' }}
+                style={{ color: colors.textMuted, fontFamily: 'Inter' }}
               >
                 by Sara
               </span>
@@ -68,7 +71,7 @@ export function Navigation() {
                   to={link.path}
                   className="relative text-sm tracking-wider uppercase transition-colors duration-300"
                   style={{
-                    color: location.pathname === link.path ? '#556B2F' : '#1C1C1C',
+                    color: location.pathname === link.path ? colors.primary : colors.text,
                     fontFamily: 'Inter',
                     fontWeight: 500,
                   }}
@@ -78,11 +81,24 @@ export function Navigation() {
                     <motion.div
                       layoutId="navUnderline"
                       className="absolute -bottom-1 left-0 right-0 h-0.5"
-                      style={{ backgroundColor: '#556B2F' }}
+                      style={{ backgroundColor: colors.primary }}
                     />
                   )}
                 </Link>
               ))}
+              
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full transition-colors duration-300"
+                style={{
+                  backgroundColor: colors.accent,
+                  color: colors.text,
+                }}
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+              </button>
             </div>
 
             {/* CTA Button - Desktop */}
@@ -90,31 +106,44 @@ export function Navigation() {
               to="/reservation"
               className="hidden lg:block px-8 py-3 rounded-full transition-all duration-300 border-2"
               style={{
-                borderColor: '#556B2F',
-                color: '#556B2F',
+                borderColor: colors.primary,
+                color: colors.primary,
                 fontFamily: 'Inter',
                 fontWeight: 500,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#556B2F';
-                e.currentTarget.style.color = '#F8F3EA';
+                e.currentTarget.style.backgroundColor = colors.primary;
+                e.currentTarget.style.color = colors.background;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#556B2F';
+                e.currentTarget.style.color = colors.primary;
               }}
             >
               Reserve Table
             </Link>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2"
-              style={{ color: '#556B2F' }}
-            >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+            <div className="lg:hidden flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full transition-colors duration-300"
+                style={{
+                  backgroundColor: colors.accent,
+                  color: colors.text,
+                }}
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+              </button>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2"
+                style={{ color: colors.primary }}
+              >
+                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -128,7 +157,7 @@ export function Navigation() {
             exit={{ x: '100%' }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             className="fixed top-0 right-0 bottom-0 w-full lg:hidden z-40"
-            style={{ backgroundColor: '#F8F3EA' }}
+            style={{ backgroundColor: colors.background }}
           >
             <div className="flex flex-col items-center justify-center h-full gap-8 pt-24 pb-12">
               {navLinks.map((link, index) => (
@@ -142,7 +171,7 @@ export function Navigation() {
                     to={link.path}
                     className="text-2xl tracking-wider uppercase transition-colors duration-300"
                     style={{
-                      color: location.pathname === link.path ? '#556B2F' : '#1C1C1C',
+                      color: location.pathname === link.path ? colors.primary : colors.text,
                       fontFamily: 'Inter',
                       fontWeight: 500,
                     }}
@@ -161,9 +190,9 @@ export function Navigation() {
                     to="/reservation"
                     className="px-12 py-4 rounded-full border-2 text-lg"
                     style={{
-                      borderColor: '#556B2F',
-                      backgroundColor: '#556B2F',
-                      color: '#F8F3EA',
+                      borderColor: colors.primary,
+                      backgroundColor: colors.primary,
+                      color: colors.background,
                       fontFamily: 'Inter',
                       fontWeight: 500,
                     }}
@@ -184,14 +213,14 @@ export function Navigation() {
           animate={{ y: 0 }}
           exit={{ y: 100 }}
           className="fixed bottom-0 left-0 right-0 lg:hidden z-40 p-4"
-          style={{ backgroundColor: '#F8F3EA' }}
+          style={{ backgroundColor: colors.background }}
         >
           <Link
             to="/reservation"
             className="block w-full py-4 rounded-full text-center text-lg shadow-lg"
             style={{
-              backgroundColor: '#556B2F',
-              color: '#F8F3EA',
+              backgroundColor: colors.primary,
+              color: colors.background,
               fontFamily: 'Inter',
               fontWeight: 500,
             }}

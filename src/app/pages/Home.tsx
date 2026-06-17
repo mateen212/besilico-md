@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowRight, Award, Heart, Users } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { useTheme } from '../context/ThemeContext';
+import { getThemeColors } from '../styles/themes';
 
 const featuredDishes = [
   {
@@ -50,6 +52,9 @@ const testimonials = [
 ];
 
 export function Home() {
+  const { theme } = useTheme();
+  const colors = getThemeColors(theme);
+  
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -84,13 +89,13 @@ export function Home() {
             >
               <h1
                 className="font-['Great_Vibes'] text-6xl md:text-8xl lg:text-9xl mb-4"
-                style={{ color: '#C8A96A' }}
+                style={{ color: colors.accent }}
               >
                 Basilico
               </h1>
               <p
                 className="text-sm md:text-base tracking-[0.4em] uppercase mb-8"
-                style={{ fontFamily: 'Inter', color: '#F8F3EA' }}
+                style={{ fontFamily: 'Inter', color: colors.textLight }}
               >
                 by Sara
               </p>
@@ -101,7 +106,7 @@ export function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
               className="text-xl md:text-2xl lg:text-3xl mb-12 leading-relaxed"
-              style={{ fontFamily: 'Playfair Display', color: '#F8F3EA' }}
+              style={{ fontFamily: 'Playfair Display', color: colors.textLight }}
             >
               Where authentic Italian heritage meets<br />Mediterranean warmth
             </motion.p>
@@ -115,9 +120,9 @@ export function Home() {
                 to="/reservation"
                 className="inline-flex items-center gap-3 px-10 py-4 rounded-full transition-all duration-500 border-2"
                 style={{
-                  borderColor: '#C8A96A',
-                  backgroundColor: '#C8A96A',
-                  color: '#1C1C1C',
+                  borderColor: colors.accent,
+                  backgroundColor: colors.accent,
+                  color: colors.text,
                   fontFamily: 'Inter',
                   fontWeight: 500,
                 }}
@@ -136,19 +141,19 @@ export function Home() {
           transition={{ duration: 1, delay: 1.2 }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
-          <div className="w-6 h-10 border-2 rounded-full flex justify-center pt-2" style={{ borderColor: '#C8A96A' }}>
+          <div className="w-6 h-10 border-2 rounded-full flex justify-center pt-2" style={{ borderColor: colors.accent }}>
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
               className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: '#C8A96A' }}
+              style={{ backgroundColor: colors.accent }}
             />
           </div>
         </motion.div>
       </section>
 
       {/* Featured Dishes */}
-      <section className="py-24 lg:py-32" style={{ backgroundColor: '#F8F3EA' }}>
+      <section className="py-24 lg:py-32" style={{ backgroundColor: colors.background }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -159,13 +164,13 @@ export function Home() {
           >
             <h2
               className="text-4xl md:text-5xl lg:text-6xl mb-4"
-              style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
+              style={{ fontFamily: 'Playfair Display', color: colors.text }}
             >
               Signature Creations
             </h2>
             <p
               className="text-lg max-w-2xl mx-auto opacity-70"
-              style={{ fontFamily: 'Inter', color: '#1C1C1C' }}
+              style={{ fontFamily: 'Inter', color: colors.text }}
             >
               Each dish is crafted with love, tradition, and the finest Italian ingredients
             </p>
@@ -196,13 +201,13 @@ export function Home() {
                 </div>
                 <h3
                   className="text-xl mb-2"
-                  style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
+                  style={{ fontFamily: 'Playfair Display', color: colors.text }}
                 >
                   {dish.name}
                 </h3>
                 <p
                   className="text-lg"
-                  style={{ fontFamily: 'Inter', fontWeight: 500, color: '#556B2F' }}
+                  style={{ fontFamily: 'Inter', fontWeight: 500, color: colors.primary }}
                 >
                   {dish.price}
                 </p>
@@ -220,7 +225,7 @@ export function Home() {
             <Link
               to="/menu"
               className="inline-flex items-center gap-2 text-lg transition-all duration-300"
-              style={{ fontFamily: 'Inter', fontWeight: 500, color: '#556B2F' }}
+              style={{ fontFamily: 'Inter', fontWeight: 500, color: colors.primary }}
             >
               Explore Full Menu
               <ArrowRight size={20} />
@@ -230,7 +235,7 @@ export function Home() {
       </section>
 
       {/* Story Section */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32" style={{ backgroundColor: colors.backgroundAlt }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -258,13 +263,13 @@ export function Home() {
               <div>
                 <p
                   className="text-sm tracking-[0.3em] uppercase mb-3"
-                  style={{ fontFamily: 'Inter', color: '#C8A96A' }}
+                  style={{ fontFamily: 'Inter', color: colors.accent }}
                 >
                   Our Heritage
                 </p>
                 <h2
                   className="text-4xl md:text-5xl mb-6"
-                  style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
+                  style={{ fontFamily: 'Playfair Display', color: colors.text }}
                 >
                   A Love Letter to<br />Italian Tradition
                 </h2>
@@ -272,7 +277,7 @@ export function Home() {
 
               <p
                 className="text-lg leading-relaxed opacity-80"
-                style={{ fontFamily: 'Inter', color: '#1C1C1C' }}
+                style={{ fontFamily: 'Inter', color: colors.text }}
               >
                 Born in the sun-drenched hills of Tuscany, Chef Sara brings three generations 
                 of family recipes to life. Each dish is a tribute to her grandmother's kitchen, 
@@ -281,7 +286,7 @@ export function Home() {
 
               <p
                 className="text-lg leading-relaxed opacity-80"
-                style={{ fontFamily: 'Inter', color: '#1C1C1C' }}
+                style={{ fontFamily: 'Inter', color: colors.text }}
               >
                 At Basilico, we honor the slow food movement—sourcing from local artisans, 
                 hand-rolling our pasta daily, and letting flavors develop with patience and care.
@@ -290,7 +295,7 @@ export function Home() {
               <Link
                 to="/about"
                 className="inline-flex items-center gap-2 pt-6 text-lg transition-all duration-300"
-                style={{ fontFamily: 'Inter', fontWeight: 500, color: '#556B2F' }}
+                style={{ fontFamily: 'Inter', fontWeight: 500, color: colors.primary }}
               >
                 Discover Our Journey
                 <ArrowRight size={20} />
@@ -301,7 +306,7 @@ export function Home() {
       </section>
 
       {/* Values Section */}
-      <section className="py-24 lg:py-32" style={{ backgroundColor: '#556B2F' }}>
+      <section className="py-24 lg:py-32" style={{ backgroundColor: theme === 'dark' ? colors.cardBg : colors.primary }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -312,7 +317,7 @@ export function Home() {
           >
             <h2
               className="text-4xl md:text-5xl mb-4"
-              style={{ fontFamily: 'Playfair Display', color: '#F8F3EA' }}
+              style={{ fontFamily: 'Playfair Display', color: theme === 'dark' ? colors.text : colors.textLight }}
             >
               The Basilico Promise
             </h2>
@@ -346,19 +351,19 @@ export function Home() {
               >
                 <div
                   className="w-16 h-16 mx-auto mb-6 rounded-full border-2 flex items-center justify-center"
-                  style={{ borderColor: '#C8A96A' }}
+                  style={{ borderColor: colors.accent }}
                 >
-                  <value.icon size={32} style={{ color: '#C8A96A' }} />
+                  <value.icon size={32} style={{ color: colors.accent }} />
                 </div>
                 <h3
                   className="text-2xl mb-4"
-                  style={{ fontFamily: 'Playfair Display', color: '#F8F3EA' }}
+                  style={{ fontFamily: 'Playfair Display', color: theme === 'dark' ? colors.text : colors.textLight }}
                 >
                   {value.title}
                 </h3>
                 <p
                   className="text-base opacity-80 leading-relaxed"
-                  style={{ fontFamily: 'Inter', color: '#F8F3EA' }}
+                  style={{ fontFamily: 'Inter', color: theme === 'dark' ? colors.text : colors.textLight }}
                 >
                   {value.description}
                 </p>
@@ -369,7 +374,7 @@ export function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32" style={{ backgroundColor: colors.backgroundAlt }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -380,7 +385,7 @@ export function Home() {
           >
             <h2
               className="text-4xl md:text-5xl mb-4"
-              style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
+              style={{ fontFamily: 'Playfair Display', color: colors.text }}
             >
               Words from Our Guests
             </h2>
@@ -394,22 +399,23 @@ export function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-[#F8F3EA] p-8 rounded-2xl"
+                className="p-8 rounded-2xl"
+                style={{ backgroundColor: colors.cardBg }}
               >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-xl" style={{ color: '#C8A96A' }}>★</span>
+                    <span key={i} className="text-xl" style={{ color: colors.accent }}>★</span>
                   ))}
                 </div>
                 <p
                   className="text-lg mb-6 italic leading-relaxed"
-                  style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
+                  style={{ fontFamily: 'Playfair Display', color: colors.text }}
                 >
                   "{testimonial.comment}"
                 </p>
                 <p
                   className="text-sm tracking-wider uppercase"
-                  style={{ fontFamily: 'Inter', fontWeight: 500, color: '#556B2F' }}
+                  style={{ fontFamily: 'Inter', fontWeight: 500, color: colors.primary }}
                 >
                   {testimonial.name}
                 </p>
@@ -439,13 +445,13 @@ export function Home() {
         >
           <h2
             className="text-4xl md:text-5xl lg:text-6xl mb-6"
-            style={{ fontFamily: 'Playfair Display', color: '#F8F3EA' }}
+            style={{ fontFamily: 'Playfair Display', color: colors.textLight }}
           >
             Ready for an Unforgettable<br />Italian Experience?
           </h2>
           <p
             className="text-lg md:text-xl mb-12 opacity-90"
-            style={{ fontFamily: 'Inter', color: '#F8F3EA' }}
+            style={{ fontFamily: 'Inter', color: colors.textLight }}
           >
             Reserve your table and let us transport you to the heart of Italy
           </p>
@@ -453,9 +459,9 @@ export function Home() {
             to="/reservation"
             className="inline-flex items-center gap-3 px-12 py-5 rounded-full transition-all duration-500 text-lg border-2"
             style={{
-              borderColor: '#C8A96A',
-              backgroundColor: '#C8A96A',
-              color: '#1C1C1C',
+              borderColor: colors.accent,
+              backgroundColor: colors.accent,
+              color: colors.text,
               fontFamily: 'Inter',
               fontWeight: 500,
             }}
