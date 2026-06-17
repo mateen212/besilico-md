@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import Masonry from 'react-responsive-masonry';
 import { X } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import { useTheme } from '../context/ThemeContext';
-import { getThemeColors } from '../styles/themes';
 
 const galleryImages = [
   {

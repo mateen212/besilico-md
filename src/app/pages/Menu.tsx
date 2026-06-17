@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Wine } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import { useTheme } from '../context/ThemeContext';
-import { getThemeColors } from '../styles/themes';
 
 type MenuCategory = 'Antipasti' | 'Pasta' | 'Secondi' | 'Dolci' | 'Vini';
 
@@ -130,15 +128,13 @@ const menuData = {
 };
 
 export function Menu() {
-  const { theme } = useTheme();
-  const colors = getThemeColors(theme);
   const [activeCategory, setActiveCategory] = useState<MenuCategory>('Antipasti');
   const [hoveredDish, setHoveredDish] = useState<string | null>(null);
 
   const categories: MenuCategory[] = ['Antipasti', 'Pasta', 'Secondi', 'Dolci', 'Vini'];
 
   return (
-    <div className="min-h-screen pt-24 lg:pt-32 pb-24" style={{ backgroundColor: colors.background }}>
+    <div className="min-h-screen pt-24 lg:pt-32 pb-24" style={{ backgroundColor: '#F8F3EA' }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div
@@ -149,13 +145,13 @@ export function Menu() {
         >
           <h1
             className="text-5xl md:text-6xl lg:text-7xl mb-6"
-            style={{ fontFamily: 'Playfair Display', color: colors.text }}
+            style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
           >
             Our Menu
           </h1>
           <p
             className="text-lg md:text-xl max-w-3xl mx-auto opacity-70"
-            style={{ fontFamily: 'Inter', color: colors.text }}
+            style={{ fontFamily: 'Inter', color: '#1C1C1C' }}
           >
             Every dish is a celebration of Italian tradition, crafted with love and the finest ingredients
           </p>
@@ -177,11 +173,11 @@ export function Menu() {
                   onClick={() => setActiveCategory(category)}
                   className="w-full text-left px-6 py-4 rounded-xl transition-all duration-300"
                   style={{
-                    backgroundColor: activeCategory === category ? colors.primary : 'transparent',
-                    color: activeCategory === category ? colors.background : colors.text,
+                    backgroundColor: activeCategory === category ? '#556B2F' : 'transparent',
+                    color: activeCategory === category ? '#F8F3EA' : '#1C1C1C',
                     fontFamily: 'Inter',
                     fontWeight: 500,
-                    border: activeCategory === category ? 'none' : `1px solid ${colors.primary}40`,
+                    border: activeCategory === category ? 'none' : '1px solid rgba(85, 107, 47, 0.2)',
                   }}
                 >
                   <span className="text-lg">{category}</span>
@@ -207,8 +203,7 @@ export function Menu() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   onMouseEnter={() => setHoveredDish(dish.name)}
                   onMouseLeave={() => setHoveredDish(null)}
-                  className="rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
-                  style={{ backgroundColor: colors.cardBg }}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
                     {/* Image */}
@@ -231,13 +226,13 @@ export function Menu() {
                         <div className="flex items-start justify-between mb-3">
                           <h3
                             className="text-2xl md:text-3xl"
-                            style={{ fontFamily: 'Playfair Display', color: colors.text }}
+                            style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
                           >
                             {dish.name}
                           </h3>
                           <span
                             className="text-xl md:text-2xl ml-4 flex-shrink-0"
-                            style={{ fontFamily: 'Inter', fontWeight: 500, color: colors.primary }}
+                            style={{ fontFamily: 'Inter', fontWeight: 500, color: '#556B2F' }}
                           >
                             {dish.price}
                           </span>
@@ -245,7 +240,7 @@ export function Menu() {
 
                         <p
                           className="text-base md:text-lg mb-4 leading-relaxed opacity-80"
-                          style={{ fontFamily: 'Inter', color: colors.text }}
+                          style={{ fontFamily: 'Inter', color: '#1C1C1C' }}
                         >
                           {dish.description}
                         </p>
@@ -262,7 +257,7 @@ export function Menu() {
                         >
                           <p
                             className="text-sm italic mb-3"
-                            style={{ fontFamily: 'Inter', color: colors.textMuted }}
+                            style={{ fontFamily: 'Inter', color: '#6B6B6B' }}
                           >
                             Ingredients: {dish.ingredients}
                           </p>
@@ -271,10 +266,10 @@ export function Menu() {
                         {/* Wine Pairing */}
                         {dish.wine && (
                           <div className="flex items-center gap-2 mt-4">
-                            <Wine size={16} style={{ color: colors.accent }} />
+                            <Wine size={16} style={{ color: '#6B1F2B' }} />
                             <span
                               className="text-sm italic"
-                              style={{ fontFamily: 'Inter', color: colors.accent }}
+                              style={{ fontFamily: 'Inter', color: '#6B1F2B' }}
                             >
                               {dish.wine}
                             </span>

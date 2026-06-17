@@ -1,8 +1,6 @@
 import { motion } from 'motion/react';
 import { MapPin, Clock, Award, Heart } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import { useTheme } from '../context/ThemeContext';
-import { getThemeColors } from '../styles/themes';
 
 const timeline = [
   {
@@ -56,9 +54,6 @@ const values = [
 ];
 
 export function About() {
-  const { theme } = useTheme();
-  const colors = getThemeColors(theme);
-  
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section */}
@@ -69,7 +64,7 @@ export function About() {
             alt="Tuscany landscape"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.3), ${colors.background})` }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-[#F8F3EA]" />
         </div>
 
         <div className="relative h-full flex items-center justify-center text-center px-6 pt-24">
@@ -81,13 +76,13 @@ export function About() {
           >
             <h1
               className="text-5xl md:text-6xl lg:text-7xl mb-6"
-              style={{ fontFamily: 'Playfair Display', color: colors.textLight }}
+              style={{ fontFamily: 'Playfair Display', color: '#F8F3EA' }}
             >
               Our Story
             </h1>
             <p
               className="text-xl md:text-2xl leading-relaxed"
-              style={{ fontFamily: 'Inter', color: colors.textLight }}
+              style={{ fontFamily: 'Inter', color: '#F8F3EA' }}
             >
               A journey from the hills of Tuscany to your table
             </p>
@@ -96,7 +91,7 @@ export function About() {
       </section>
 
       {/* Main Story Section */}
-      <section className="py-24 lg:py-32" style={{ backgroundColor: colors.background }}>
+      <section className="py-24 lg:py-32" style={{ backgroundColor: '#F8F3EA' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
             <motion.div
@@ -124,13 +119,13 @@ export function About() {
               <div>
                 <h2
                   className="text-4xl md:text-5xl mb-6"
-                  style={{ fontFamily: 'Playfair Display', color: colors.text }}
+                  style={{ fontFamily: 'Playfair Display', color: '#1C1C1C' }}
                 >
                   Meet Chef Sara
                 </h2>
                 <p
                   className="font-['Great_Vibes'] text-2xl mb-4"
-                  style={{ color: colors.primary }}
+                  style={{ color: '#556B2F' }}
                 >
                   "Cooking is my love language"
                 </p>
@@ -138,7 +133,7 @@ export function About() {
 
               <p
                 className="text-lg leading-relaxed opacity-80"
-                style={{ fontFamily: 'Inter', color: colors.text }}
+                style={{ fontFamily: 'Inter', color: '#1C1C1C' }}
               >
                 Growing up in a small Tuscan village, I spent countless hours in my grandmother's kitchen, 
                 where the air was always filled with the aroma of fresh basil, simmering tomato sauce, 
@@ -147,7 +142,7 @@ export function About() {
 
               <p
                 className="text-lg leading-relaxed opacity-80"
-                style={{ fontFamily: 'Inter', color: colors.text }}
+                style={{ fontFamily: 'Inter', color: '#1C1C1C' }}
               >
                 Those moments taught me that Italian cooking isn't just about food—it's about family, 
                 tradition, and sharing love through every dish. At Basilico, I strive to recreate that 
