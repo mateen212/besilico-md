@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, ChevronDown } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { getThemeColors } from '../styles/themes';
+import { useBranches } from '../context/BranchContext';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMobileCTA, setShowMobileCTA] = useState(false);
+  const [showBranchesDropdown, setShowBranchesDropdown] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
   const colors = getThemeColors(theme);
+  const { restaurantBranches, cafeBranches } = useBranches();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +31,7 @@ export function Navigation() {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/branches', label: 'Branches' },
     { path: '/menu', label: 'Menu' },
     { path: '/about', label: 'Our Story' },
     { path: '/gallery', label: 'Gallery' },

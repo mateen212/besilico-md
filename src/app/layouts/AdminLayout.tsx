@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, LogOut, LayoutDashboard, Package, Image, BarChart3, Settings, Users, Calendar, FileText } from 'lucide-react';
+import { Menu, X, LogOut, LayoutDashboard, Package, Image, BarChart3, Settings, Users, Calendar, FileText, MapPin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { getThemeColors } from '../styles/themes';
 
 const adminNavItems = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { path: '/admin/branches', label: 'Branches', icon: MapPin },
   { path: '/admin/products', label: 'Products', icon: Package },
   { path: '/admin/media', label: 'Media', icon: Image },
   { path: '/admin/reservations', label: 'Reservations', icon: Calendar },

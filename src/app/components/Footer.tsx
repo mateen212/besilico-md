@@ -2,10 +2,12 @@ import { Link } from 'react-router';
 import { Instagram, Facebook, Mail, Phone, MapPin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { getThemeColors } from '../styles/themes';
+import { useBranches } from '../context/BranchContext';
 
 export function Footer() {
   const { theme } = useTheme();
   const colors = getThemeColors(theme);
+  const { activeBranches, defaultBranch } = useBranches();
   
   return (
     <footer className="py-16 lg:py-20" style={{ backgroundColor: colors.cardBg }}>
@@ -31,7 +33,7 @@ export function Footer() {
               className="text-sm leading-relaxed opacity-80"
               style={{ fontFamily: 'Inter', color: colors.text }}
             >
-              Authentic Italian fine dining with a warm Mediterranean soul.
+              {activeBranches.length} locations of authentic Italian fine dining and cafés with Mediterranean warmth.
             </p>
             <div className="flex gap-4">
               <a
@@ -111,24 +113,28 @@ export function Footer() {
               Contact
             </h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin size={18} className="mt-1 flex-shrink-0" style={{ color: colors.accent }} />
-                <span className="text-sm opacity-80" style={{ fontFamily: 'Inter', color: colors.text }}>
-                  123 Via Roma, Milan<br />Italy 20121
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={18} style={{ color: colors.accent }} />
-                <span className="text-sm opacity-80" style={{ fontFamily: 'Inter', color: colors.text }}>
-                  +39 02 1234 5678
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail size={18} style={{ color: colors.accent }} />
-                <span className="text-sm opacity-80" style={{ fontFamily: 'Inter', color: colors.text }}>
-                  info@basilicobysara.it
-                </span>
-              </li>
+              {defaultBranch && (
+                <>
+                  <li className="flex items-start gap-3">
+                    <MapPin size={18} className="mt-1 flex-shrink-0" style={{ color: colors.accent }} />
+                    <span className="text-sm opacity-80" style={{ fontFamily: 'Inter', color: colors.text }}>
+                      {defaultBranch.location.address}<br />{defaultBranch.location.city}, {defaultBranch.location.country}
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Phone size={18} style={{ color: colors.accent }} />
+                    <span className="text-sm opacity-80" style={{ fontFamily: 'Inter', color: colors.text }}>
+                      {defaultBranch.location.phone}
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Mail size={18} style={{ color: colors.accent }} />
+                    <span className="text-sm opacity-80" style={{ fontFamily: 'Inter', color: colors.text }}>
+                      {defaultBranch.location.email}
+                    </span>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 

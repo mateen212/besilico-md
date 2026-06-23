@@ -6,8 +6,11 @@ import { About } from "./pages/About";
 import { Gallery } from "./pages/Gallery";
 import { Reservation } from "./pages/Reservation";
 import { Catering } from "./pages/Catering";
+import { Branches } from "./pages/Branches";
+import { BranchDetail } from "./pages/BranchDetail";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { AdminDashboard } from "./pages/admin/Dashboard";
+import { AdminBranches } from "./pages/admin/Branches";
 import { AdminProducts } from "./pages/admin/Products";
 import { AdminMediaLibrary } from "./pages/admin/MediaLibrary";
 import { AdminReservations } from "./pages/admin/Reservations";
@@ -27,6 +30,8 @@ export const router = createBrowserRouter([
       { path: "gallery", Component: Gallery },
       { path: "reservation", Component: Reservation },
       { path: "catering", Component: Catering },
+      { path: "branches", Component: Branches },
+      { path: "branch/:branchId", Component: BranchDetail },
     ],
   },
   {
@@ -34,6 +39,7 @@ export const router = createBrowserRouter([
     Component: AdminLayout,
     children: [
       { index: true, Component: AdminDashboard },
+      { path: "branches", Component: AdminBranches },
       { path: "products", Component: AdminProducts },
       { path: "media", Component: AdminMediaLibrary },
       { path: "reservations", Component: AdminReservations },

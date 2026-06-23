@@ -1,11 +1,14 @@
 import { RouterProvider } from 'react-router';
 import { router } from './routes';
 import { ThemeProvider } from './context/ThemeContext';
+import { BranchProvider } from './context/BranchContext';
 
 export default function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <BranchProvider>
+        <RouterProvider router={router} />
+      </BranchProvider>
     </ThemeProvider>
   );
 }
