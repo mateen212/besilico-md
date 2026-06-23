@@ -35,14 +35,16 @@ export function Navigation() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'backdrop-blur-md shadow-sm' : 'bg-transparent'
-        }`}
-        style={isScrolled ? { backgroundColor: 'var(--brand-nav-bg)' } : {}}
-      >
+  initial={{ y: -100 }}
+  animate={{ y: 0 }}
+  transition={{ duration: 0.6, ease: 'easeOut' }}
+  className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    isScrolled ? 'backdrop-blur-md shadow-sm' : ''
+  }`}
+  style={{
+    backgroundColor: 'var(--brand-nav-bg)',
+  }}
+>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
             <Link to="/" className="flex flex-col">
