@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { useParams, useNavigate } from 'react-router';
 import { ArrowLeft, Settings, BarChart3, Users, ShoppingCart, MapPin } from 'lucide-react';

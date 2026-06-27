@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet } from 'react-router';
 import { PlatformSidebar } from '../../components/platform/PlatformSidebar';
 import { PlatformTopbar } from '../../components/platform/PlatformTopbar';

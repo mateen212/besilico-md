@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { ShoppingCart, Heart, Clock, MapPin, Star, LogOut } from 'lucide-react';
 

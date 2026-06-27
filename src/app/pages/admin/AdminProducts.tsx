@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { Search, Plus, Filter, Download, Upload, ChevronLeft, ChevronRight, MoreHorizontal, Star, Eye, EyeOff } from 'lucide-react';

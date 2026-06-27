@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Heart, Users, Award, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router';

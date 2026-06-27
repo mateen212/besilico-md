@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Bell, Calendar, ShoppingBag, AlertTriangle, MessageSquare, Check, CheckCheck, X } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';

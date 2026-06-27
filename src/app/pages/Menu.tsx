@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from "react";
 import { motion } from "motion/react";
 import { LayoutGrid, List, ShoppingCart } from "lucide-react";

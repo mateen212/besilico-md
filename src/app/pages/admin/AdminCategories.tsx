@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Plus, Edit2, Trash2, GripVertical, Eye, EyeOff } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -8,7 +9,7 @@ const defaultCategories = [
   { id: 3, name: 'Secondi', slug: 'secondi', products: 6, visible: true, color: '#9B2D3E', description: 'Main meat and fish courses' },
   { id: 4, name: 'Dolci', slug: 'dolci', products: 5, visible: true, color: '#E0BE84', description: 'Desserts and sweets' },
   { id: 5, name: 'Vini', slug: 'vini', products: 18, visible: true, color: '#9B2D3E', description: 'Italian wine selection' },
-  { id: 6, name: 'Drinks', slug: 'drinks', products: 10, visible: true, color: mutedText, description: 'Non-alcoholic and cocktails' },
+  { id: 6, name: 'Drinks', slug: 'drinks', products: 10, visible: true, color: '#B8A569', description: 'Non-alcoholic and cocktails' },
   { id: 7, name: 'Seasonal Specials', slug: 'seasonal', products: 4, visible: false, color: '#5C7A38', description: 'Limited time seasonal dishes' },
 ];
 

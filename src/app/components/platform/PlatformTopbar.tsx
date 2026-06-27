@@ -1,3 +1,4 @@
+import React from 'react';
 import { Menu, Bell, Search, Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';

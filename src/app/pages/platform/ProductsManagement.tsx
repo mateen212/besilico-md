@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Plus, Search, Edit2, Trash2, Eye, MoreVertical, TrendingUp, Package, AlertCircle } from 'lucide-react';

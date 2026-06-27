@@ -1,7 +1,7 @@
+import React, { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { AlertCircle, Home } from 'lucide-react';
 import { Link } from 'react-router';
-import { ReactNode } from 'react';
 
 interface ErrorBoundaryProps {
   children: ReactNode;

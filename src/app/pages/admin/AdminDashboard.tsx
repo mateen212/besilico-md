@@ -1,3 +1,4 @@
+import React from 'react';
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { TrendingUp, Calendar, ShoppingBag, Users, Euro, Star, ArrowUpRight, ArrowDownRight, Clock } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';

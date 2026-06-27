@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Plus, Calendar, Users, MapPin, Euro, ChevronRight, Star } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
