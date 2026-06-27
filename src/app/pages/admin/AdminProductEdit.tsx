@@ -9,8 +9,6 @@ const categories = ['Antipasti', 'Pasta', 'Secondi', 'Dolci', 'Vini', 'Drinks'];
 const wines = ['Barolo DOCG', 'Brunello di Montalcino', 'Chianti Classico', 'Prosecco Superiore', 'Pinot Grigio', 'Vermentino', 'Verdicchio', 'Frascati'];
 
 const inputCls = 'w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all';
-const inputStyle = { backgroundColor: inputBg, color: textColor, border: '1px solid rgba(201,168,106,0.15)' };
-const labelStyle = { color: mutedText, fontSize: '12px', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' as const };
 
 export function AdminProductEdit() {
   const { isDark } = useTheme();
@@ -21,6 +19,9 @@ export function AdminProductEdit() {
   const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
   const inputBg = isDark ? '#252320' : '#F5F5F5';
   const hoverBg = isDark ? 'rgba(201,168,106,0.08)' : 'rgba(201,168,106,0.1)';
+  
+  const inputStyle = { backgroundColor: inputBg, color: textColor, border: '1px solid rgba(201,168,106,0.15)' };
+  const labelStyle = { color: mutedText, fontSize: '12px', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' as const };
   
   const { id } = useParams();
   const isNew = !id;
