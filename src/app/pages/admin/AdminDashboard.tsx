@@ -1,5 +1,6 @@
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { TrendingUp, Calendar, ShoppingBag, Users, Euro, Star, ArrowUpRight, ArrowDownRight, Clock } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const revenueData = [
   { month: 'Jan', revenue: 28400, covers: 312 },
@@ -84,8 +85,15 @@ const tooltipStyle = {
 };
 
 export function AdminDashboard() {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#999999';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
+  
   return (
-    <div className="p-6 space-y-8" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6 space-y-8 transition-colors" style={{ backgroundColor: bgColor, minHeight: '100%' }}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

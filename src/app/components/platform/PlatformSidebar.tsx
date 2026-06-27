@@ -4,6 +4,7 @@ import {
   LayoutDashboard, Store, Users, ShoppingCart, BarChart3, Settings, 
   Bell, FileText, Zap, ChevronRight, Menu, X, Package, UserCheck, TrendingUp
 } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface PlatformSidebarProps {
   open: boolean;
@@ -25,6 +26,15 @@ const sidebarItems = [
 
 export function PlatformSidebar({ open, setOpen }: PlatformSidebarProps) {
   const location = useLocation();
+  const { isDark } = useTheme();
+
+  const bgColor = isDark ? '#12110F' : '#FFFFFF';
+  const borderColor = isDark ? 'rgba(201,168,106,0.1)' : '#E5E5E5';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#999999';
+  const activeBg = isDark ? 'rgba(201,168,106,0.15)' : 'rgba(201,168,106,0.1)';
+  const activeColor = '#C9A86A';
+  const hoverBg = isDark ? 'rgba(201,168,106,0.08)' : 'rgba(201,168,106,0.05)';
 
   const isActive = (href: string) => {
     if (href === '/admin' && location.pathname === '/admin') return true;
@@ -56,13 +66,17 @@ export function PlatformSidebar({ open, setOpen }: PlatformSidebarProps) {
           x: open ? 0 : '-100%',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="fixed lg:relative z-40 h-screen w-64 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 overflow-y-auto"
+        className="fixed lg:relative z-40 h-screen w-64 border-r overflow-y-auto transition-colors"
+        style={{ backgroundColor: bgColor, borderColor }}
       >
-        <div className="sticky top-0 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 p-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Sara Group</h1>
+        <div className="sticky top-0 border-b p-4 flex items-center justify-between transition-colors" style={{ backgroundColor: bgColor, borderColor }}>
+          <h1 className="text-xl font-bold transition-colors" style={{ color: textColor }}>Sara Group</h1>
           <button
             onClick={() => setOpen(false)}
-            className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg"
+            className="lg:hidden p-2 rounded-lg transition-colors"
+            style={{ color: textColor }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverBg)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
           >
             <X size={20} />
           </button>
@@ -71,7 +85,7 @@ export function PlatformSidebar({ open, setOpen }: PlatformSidebarProps) {
         <nav className="p-4 space-y-1">
           {/* Main Items */}
           <div>
-            <p className="px-3 py-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">
+            <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider mb-3 transition-colors" style={{ color: mutedText }}>
               Navigation
             </p>
             <div className="space-y-1">
@@ -82,11 +96,17 @@ export function PlatformSidebar({ open, setOpen }: PlatformSidebarProps) {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group ${
-                      active
-                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800'
-                    }`}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group"
+                    style={{
+                      backgroundColor: active ? activeBg : 'transparent',
+                      color: active ? activeColor : textColor,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!active) (e.currentTarget as HTMLElement).style.backgroundColor = hoverBg;
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!active) (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+                    }}
                   >
                     <Icon size={20} />
                     <span className="font-medium">{item.label}</span>
@@ -103,8 +123,8 @@ export function PlatformSidebar({ open, setOpen }: PlatformSidebarProps) {
           </div>
 
           {/* Other Items */}
-          <div className="pt-6 border-t border-gray-200 dark:border-slate-700">
-            <p className="px-3 py-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">
+          <div className="pt-6 border-t transition-colors" style={{ borderColor }}>
+            <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider mb-3 transition-colors" style={{ color: mutedText }}>
               Other
             </p>
             <div className="space-y-1">
@@ -115,11 +135,17 @@ export function PlatformSidebar({ open, setOpen }: PlatformSidebarProps) {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group ${
-                      active
-                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800'
-                    }`}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group"
+                    style={{
+                      backgroundColor: active ? activeBg : 'transparent',
+                      color: active ? activeColor : textColor,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!active) (e.currentTarget as HTMLElement).style.backgroundColor = hoverBg;
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!active) (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+                    }}
                   >
                     <Icon size={20} />
                     <span className="font-medium">{item.label}</span>
@@ -131,11 +157,11 @@ export function PlatformSidebar({ open, setOpen }: PlatformSidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900">
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
-            <Zap size={20} className="mx-auto mb-2 text-blue-600 dark:text-blue-400" />
-            <p className="text-sm font-semibold text-gray-900 dark:text-white">Platform v1.0</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400">Multi-Brand SaaS</p>
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t transition-colors" style={{ backgroundColor: bgColor, borderColor }}>
+          <div className="p-4 rounded-lg text-center transition-colors" style={{ backgroundColor: activeBg }}>
+            <Zap size={20} className="mx-auto mb-2" style={{ color: activeColor }} />
+            <p className="text-sm font-semibold transition-colors" style={{ color: textColor }}>Platform v1.0</p>
+            <p className="text-xs transition-colors" style={{ color: mutedText }}>Multi-Brand SaaS</p>
           </div>
         </div>
       </motion.div>
