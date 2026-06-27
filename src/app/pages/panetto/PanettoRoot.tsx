@@ -17,13 +17,17 @@ export function PanettoRoot() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#F5F1E8' }}>
+    <div className="min-h-screen transition-colors" style={{ backgroundColor: isDark ? '#1A1512' : '#F5F1E8' }}>
       {/* Navigation */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm"
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md shadow-sm transition-colors"
+        style={{
+          backgroundColor: isDark ? 'rgba(26, 21, 18, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+          borderBottom: isDark ? '1px solid rgba(139, 115, 85, 0.2)' : '1px solid rgba(212, 165, 116, 0.1)'
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
@@ -42,7 +46,7 @@ export function PanettoRoot() {
                   key={link.path}
                   to={link.path}
                   className="relative text-sm tracking-widest uppercase transition-colors"
-                  style={{ color: '#5A4A42' }}
+                  style={{ color: isDark ? '#D4A574' : '#5A4A42' }}
                 >
                   {link.label}
                 </Link>
@@ -58,7 +62,7 @@ export function PanettoRoot() {
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
               </button>
               <Link
-                to="/panite"
+                to="/panetto/menu"
                 className="px-8 py-3 rounded-full transition-all border-2 text-sm tracking-wider"
                 style={{
                   borderColor: '#8B7355',
@@ -105,16 +109,16 @@ export function PanettoRoot() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.4 }}
-            className="fixed top-0 right-0 bottom-0 w-full lg:hidden z-40"
-            style={{ backgroundColor: '#F5F1E8' }}
+            className="fixed top-0 right-0 bottom-0 w-full lg:hidden z-40 transition-colors"
+            style={{ backgroundColor: isDark ? '#1A1512' : '#F5F1E8' }}
           >
             <div className="flex flex-col items-center justify-center h-full gap-8 pt-24">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="text-2xl tracking-widest uppercase"
-                  style={{ color: '#5A4A42' }}
+                  className="text-2xl tracking-widest uppercase transition-colors"
+                  style={{ color: isDark ? '#D4A574' : '#5A4A42' }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}

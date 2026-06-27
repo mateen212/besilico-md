@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Bell, Calendar, ShoppingBag, AlertTriangle, MessageSquare, Check, CheckCheck, X } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 type NotifType = 'reservation' | 'order' | 'stock' | 'event' | 'message';
 
@@ -24,8 +25,15 @@ const typeConfig: Record<NotifType, { icon: typeof Bell; color: string; bg: stri
 };
 
 export function AdminNotifications() {
+  const { isDark } = useTheme();
   const [notifs, setNotifs] = useState(notifications);
   const [filter, setFilter] = useState<'all' | 'unread' | NotifType>('all');
+
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#666666';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
 
   const unreadCount = notifs.filter(n => !n.read).length;
 
@@ -40,14 +48,14 @@ export function AdminNotifications() {
   });
 
   return (
-    <div className="p-6 space-y-6" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6 space-y-6 transition-colors" style={{ backgroundColor: bgColor, minHeight: '100%' }}>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Notifications</h1>
-          <p className="text-sm" style={{ color: '#B8B1A8' }}>{unreadCount} unread notifications</p>
+          <h1 className="text-2xl font-semibold mb-1 transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Notifications</h1>
+          <p className="text-sm transition-colors" style={{ color: mutedText }}>{unreadCount} unread notifications</p>
         </div>
         {unreadCount > 0 && (
-          <button onClick={markAllRead} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm" style={{ backgroundColor: 'rgba(201,168,106,0.1)', color: '#C9A86A', border: '1px solid rgba(201,168,106,0.2)' }}>
+          <button onClick={markAllRead} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm transition-colors" style={{ backgroundColor: isDark ? 'rgba(201,168,106,0.1)' : 'rgba(201,168,106,0.15)', color: '#C9A86A', border: `1px solid ${borderColor}` }}>
             <CheckCheck size={15} /> Mark all as read
           </button>
         )}

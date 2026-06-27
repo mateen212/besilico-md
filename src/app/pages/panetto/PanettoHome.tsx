@@ -1,7 +1,9 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowRight, Sparkles, Award, Clock, Users } from 'lucide-react';
+import { ArrowRight, Sparkles, Award, Clock, Users, Leaf } from 'lucide-react';
 import { Link } from 'react-router';
+import { useTheme } from '../../contexts/ThemeContext';
+import { PanettoFooter } from '../../components/PanettoFooter';
 
 const featuredProducts = [
   {
@@ -30,7 +32,29 @@ const featuredProducts = [
   },
 ];
 
+const testimonials = [
+  {
+    name: 'Sarah Khan',
+    role: 'Customer',
+    text: 'The croissants here are absolutely divine. I come back every weekend!',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
+  },
+  {
+    name: 'Ahmed Ali',
+    role: 'Regular Customer',
+    text: 'Best sourdough in Lahore. The bread has perfect crust and crumb. Highly recommend!',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
+  },
+  {
+    name: 'Fatima Hassan',
+    role: 'Food Blogger',
+    text: 'Authentic European technique meets local flavors. Pure artisanal craftsmanship.',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
+  },
+];
+
 export function PanettoHome() {
+  const { isDark } = useTheme();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -39,243 +63,239 @@ export function PanettoHome() {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.3]);
 
+  const bgColor = isDark ? '#1A1512' : '#F5F1E8';
+  const textColor = isDark ? '#F5F1E8' : '#2D2D2D';
+  const accentColor = '#8B7355';
+  const lightAccent = '#D4A574';
+
   return (
-    <div className="overflow-x-hidden pt-24 bg-amber-50">
-      {/* Hero */}
-      <section ref={heroRef} className="relative h-screen overflow-hidden">
-        <motion.div style={{ y }} className="absolute inset-0">
+    <div className="min-h-screen transition-colors" style={{ backgroundColor: bgColor }}>
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden pt-24">
+        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1600&h=900&fit=crop"
-            alt="Artisan bakery"
+            src="https://images.unsplash.com/photo-1555939594-58d7cb561831?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=2000"
+            alt="Bakery"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60" />
+          <div className={`absolute inset-0 ${isDark ? 'bg-black/70' : 'bg-black/40'}`} />
         </motion.div>
 
         <motion.div
-          style={{ opacity }}
-          className="relative h-full flex items-center justify-center text-center text-white px-4"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative z-10 text-center px-6 max-w-4xl mx-auto"
         >
-          <div>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="font-['Great_Vibes'] text-6xl lg:text-7xl mb-4"
-            >
-              Panetto
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-xl lg:text-2xl mb-8 tracking-wide"
-            >
-              Artisan Bakery & Pastries
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="text-base lg:text-lg max-w-2xl mx-auto mb-12 text-gray-100"
-            >
-              Handcrafted baked goods made fresh daily with the finest ingredients
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Link
-                to="/panetto/menu"
-                className="px-8 py-4 bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-colors flex items-center justify-center gap-2 font-semibold"
-              >
-                Explore Menu <ArrowRight size={20} />
-              </Link>
-              <Link
-                to="/panetto/contact"
-                className="px-8 py-4 border-2 border-white text-white rounded-full hover:bg-white hover:text-amber-900 transition-colors font-semibold"
-              >
-                Order Now
-              </Link>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
+            style={{ backgroundColor: 'rgba(212, 165, 116, 0.1)', border: '1px solid rgba(212, 165, 116, 0.3)' }}
+          >
+            <Sparkles size={16} style={{ color: lightAccent }} />
+            <span style={{ color: lightAccent }} className="text-sm font-semibold">Artisan Bakery Since 2020</span>
+          </motion.div>
+
+          <h1
+            className="text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight"
+            style={{ fontFamily: 'Great_Vibes, cursive', color: '#F5F1E8' }}
+          >
+            Panetto
+          </h1>
+
+          <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto" style={{ color: '#F5F1E8', fontWeight: 300 }}>
+            Premium European breads & pastries, baked fresh daily with traditional techniques
+          </p>
+
+          <Link
+            to="/panetto/menu"
+            className="inline-flex items-center gap-3 px-12 py-5 rounded-full transition-all duration-500 text-lg border-2"
+            style={{
+              borderColor: lightAccent,
+              backgroundColor: lightAccent,
+              color: accentColor,
+              fontWeight: 500,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+              (e.currentTarget as HTMLElement).style.color = lightAccent;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = lightAccent;
+              (e.currentTarget as HTMLElement).style.color = accentColor;
+            }}
+          >
+            Explore Menu
+            <ArrowRight size={20} />
+          </Link>
         </motion.div>
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-20 px-6 lg:px-12 transition-colors" style={{ backgroundColor: bgColor }}>
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Creations</h2>
-            <p className="text-lg text-gray-600">Discover our most beloved baked creations</p>
+            <h2 className="text-4xl md:text-5xl mb-4 font-serif" style={{ color: accentColor }}>
+              Featured Delights
+            </h2>
+            <p style={{ color: isDark ? '#B8966B' : '#A0865F' }}>
+              Our most loved creations
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group cursor-pointer"
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                style={{
+                  backgroundColor: isDark ? '#2A2420' : '#FFFFFF',
+                  border: `1px solid ${isDark ? 'rgba(212, 165, 116, 0.2)' : 'rgba(212, 165, 116, 0.1)'}`
+                }}
               >
-                <div className="relative h-64 mb-4 rounded-lg overflow-hidden shadow-lg">
+                <div className="relative h-48 overflow-hidden">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">{product.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-amber-600 font-bold">{product.price}</span>
-                  <button className="text-amber-600 hover:text-amber-700 transition-colors">
-                    <ArrowRight size={20} />
-                  </button>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2" style={{ color: textColor }}>
+                    {product.name}
+                  </h3>
+                  <p className="text-sm mb-4" style={{ color: isDark ? '#B8966B' : '#A0865F' }}>
+                    {product.description}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-bold" style={{ color: accentColor }}>
+                      {product.price}
+                    </span>
+                    <button
+                      className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+                      style={{
+                        backgroundColor: accentColor,
+                        color: bgColor,
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.backgroundColor = lightAccent;
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.backgroundColor = accentColor;
+                      }}
+                    >
+                      Order
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mt-12"
-          >
-            <Link
-              to="/panetto/menu"
-              className="inline-flex items-center gap-3 px-10 py-4 bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-colors font-semibold text-lg"
-            >
-              View Full Menu <ArrowRight size={24} />
-            </Link>
-          </motion.div>
         </div>
       </section>
 
-      {/* Why Panetto */}
-      <section className="py-20 px-4 bg-amber-50">
-        <div className="max-w-6xl mx-auto">
+      {/* Values Section */}
+      <section className="py-20 px-6 lg:px-12 transition-colors" style={{ backgroundColor: isDark ? '#2A2420' : '#FFFFFF' }}>
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Panetto?</h2>
-            <p className="text-lg text-gray-600">Experience the difference of artisan baking</p>
+            <h2 className="text-4xl md:text-5xl mb-4 font-serif" style={{ color: accentColor }}>
+              Why Choose Panetto
+            </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                icon: Sparkles,
-                title: 'Premium Ingredients',
-                description: 'We use only the finest organic ingredients sourced from trusted suppliers',
-                image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&h=300&fit=crop',
-              },
-              {
-                icon: Award,
-                title: 'Expert Craftsmen',
-                description: 'Our bakers have decades of combined experience in traditional French baking',
-                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-              },
-              {
-                icon: Clock,
-                title: 'Fresh Daily',
-                description: 'Everything is baked fresh every morning, never frozen or pre-made',
-                image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=300&h=300&fit=crop',
-              },
-            ].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="relative h-40 mb-6 rounded-lg overflow-hidden shadow-md">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <Icon size={40} className="mx-auto mb-4 text-amber-600" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </motion.div>
-              );
-            })}
+              { icon: Award, title: 'Premium Quality', desc: 'Only finest European ingredients used' },
+              { icon: Clock, title: 'Fresh Daily', desc: 'Baked fresh each morning' },
+              { icon: Leaf, title: 'Authentic', desc: 'Traditional European techniques' },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="text-center p-8 rounded-xl transition-all"
+                style={{
+                  backgroundColor: isDark ? '#1A1512' : 'rgba(212, 165, 116, 0.05)',
+                  border: `1px solid ${isDark ? 'rgba(212, 165, 116, 0.2)' : 'rgba(212, 165, 116, 0.1)'}`
+                }}
+              >
+                <item.icon size={32} style={{ color: accentColor }} className="mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2" style={{ color: textColor }}>
+                  {item.title}
+                </h3>
+                <p style={{ color: isDark ? '#B8966B' : '#A0865F' }} className="text-sm">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-20 px-6 lg:px-12 transition-colors" style={{ backgroundColor: bgColor }}>
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Customer Love</h2>
-            <p className="text-lg text-gray-600">What our customers are saying</p>
+            <h2 className="text-4xl md:text-5xl mb-4 font-serif" style={{ color: accentColor }}>
+              What Our Customers Say
+            </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                text: 'The best croissants I\'ve ever had! Absolutely amazing quality.',
-                author: 'Sarah Ahmed',
-                image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
-              },
-              {
-                text: 'Panetto has changed my mornings. Fresh, delicious, and authentic.',
-                author: 'Hassan Khan',
-                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-              },
-              {
-                text: 'Finally found an artisan bakery that lives up to its promise!',
-                author: 'Fatima Hassan',
-                image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
-              },
-            ].map((testimonial, idx) => (
+            {testimonials.map((testimonial, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="bg-amber-50 p-8 rounded-lg shadow-md"
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="p-8 rounded-xl transition-all"
+                style={{
+                  backgroundColor: isDark ? '#2A2420' : '#FFFFFF',
+                  border: `1px solid ${isDark ? 'rgba(212, 165, 116, 0.2)' : 'rgba(212, 165, 116, 0.1)'}`
+                }}
               >
-                <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-4 mb-6">
                   <img
                     src={testimonial.image}
-                    alt={testimonial.author}
+                    alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
                   <div>
-                    <p className="font-semibold text-gray-900">{testimonial.author}</p>
-                    <div className="flex text-amber-500">
-                      {[...Array(5)].map((_, i) => (
-                        <Sparkles key={i} size={14} fill="currentColor" />
-                      ))}
-                    </div>
+                    <h4 className="font-semibold" style={{ color: textColor }}>
+                      {testimonial.name}
+                    </h4>
+                    <p style={{ color: accentColor }} className="text-sm">
+                      {testimonial.role}
+                    </p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic">"{testimonial.text}"</p>
+                <p style={{ color: isDark ? '#B8966B' : '#A0865F' }} className="italic">
+                  "{testimonial.text}"
+                </p>
               </motion.div>
             ))}
           </div>
@@ -283,27 +303,55 @@ export function PanettoHome() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white">
+      <section className="py-24 px-6 lg:px-12 transition-colors" style={{ backgroundColor: isDark ? '#2A2420' : '#F5F1E8' }}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h2 className="text-4xl font-bold mb-6">Order Your Favorites Today</h2>
-          <p className="text-xl mb-8 text-amber-100">
-            Visit our bakery or place your order online for delivery
+          <h2 className="text-5xl md:text-6xl mb-6 font-serif" style={{ color: accentColor }}>
+            Ready to Experience Excellence?
+          </h2>
+          <p className="text-xl mb-12" style={{ color: isDark ? '#B8966B' : '#A0865F' }}>
+            Visit Panetto today or order online for delivery
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/panetto/menu"
-              className="px-10 py-4 bg-white text-amber-700 rounded-full hover:bg-gray-100 transition-colors font-semibold text-lg"
+              className="px-12 py-4 rounded-full font-semibold transition-all border-2"
+              style={{
+                borderColor: accentColor,
+                backgroundColor: accentColor,
+                color: bgColor,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+                (e.currentTarget as HTMLElement).style.color = accentColor;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = accentColor;
+                (e.currentTarget as HTMLElement).style.color = bgColor;
+              }}
             >
-              Browse Menu
+              Order Now
             </Link>
             <Link
               to="/panetto/contact"
-              className="px-10 py-4 border-2 border-white text-white rounded-full hover:bg-white hover:text-amber-700 transition-colors font-semibold text-lg"
+              className="px-12 py-4 rounded-full font-semibold transition-all border-2"
+              style={{
+                borderColor: accentColor,
+                color: accentColor,
+                backgroundColor: 'transparent',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = accentColor;
+                (e.currentTarget as HTMLElement).style.color = bgColor;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+                (e.currentTarget as HTMLElement).style.color = accentColor;
+              }}
             >
               Contact Us
             </Link>
@@ -312,55 +360,7 @@ export function PanettoHome() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="font-['Great_Vibes'] text-3xl text-amber-500 mb-4">Panetto</h3>
-              <p className="text-sm">Artisan bakery & pastries, crafted with love every day.</p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link to="/panetto/menu" className="hover:text-amber-500 transition-colors">
-                    Menu
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/panetto/about" className="hover:text-amber-500 transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/panetto/contact" className="hover:text-amber-500 transition-colors">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Hours</h4>
-              <ul className="space-y-2 text-sm">
-                <li>Mon-Fri: 7 AM - 8 PM</li>
-                <li>Sat: 8 AM - 9 PM</li>
-                <li>Sun: 8 AM - 6 PM</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Contact</h4>
-              <ul className="space-y-2 text-sm">
-                <li>📍 Karachi, Pakistan</li>
-                <li>📞 +92 300 1234567</li>
-                <li>✉️ hello@panetto.pk</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 pt-8 text-center text-sm">
-            <p>© 2026 Panetto. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <PanettoFooter />
     </div>
   );
 }

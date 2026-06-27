@@ -1,5 +1,6 @@
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { TrendingUp, TrendingDown, Users, Euro, ShoppingBag, Star } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const revenueData = [
   { week: 'W1', revenue: 12400, lastYear: 10200 },
@@ -45,17 +46,28 @@ const kpis = [
 ];
 
 export function AdminAnalytics() {
+  const { isDark } = useTheme();
+  
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#666666';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
+  const gridColor = isDark ? 'rgba(201,168,106,0.08)' : 'rgba(201,168,106,0.1)';
+  const tooltipBg = isDark ? '#1B1917' : '#FFFFFF';
+  const tooltipText = isDark ? '#F3ECDD' : '#2D2D2D';
+
   return (
-    <div className="p-6 space-y-8" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6 space-y-8 transition-colors" style={{ backgroundColor: bgColor, minHeight: '100%' }}>
       <div>
-        <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Analytics</h1>
-        <p className="text-sm" style={{ color: '#B8B1A8' }}>June 2026 — Real-time performance overview</p>
+        <h1 className="text-2xl font-semibold mb-1 transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Analytics</h1>
+        <p className="text-sm transition-colors" style={{ color: mutedText }}>June 2026 — Real-time performance overview</p>
       </div>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map(({ label, value, change, up, icon: Icon }) => (
-          <div key={label} className="rounded-2xl p-5" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+          <div key={label} className="rounded-2xl p-5 transition-colors" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
             <div className="flex items-center justify-between mb-3">
               <Icon size={18} style={{ color: '#C9A86A' }} />
               <span className={`text-xs px-2 py-0.5 rounded-full flex items-center gap-1`} style={{ backgroundColor: up ? 'rgba(92,122,56,0.15)' : 'rgba(155,45,62,0.15)', color: up ? '#5C7A38' : '#9B2D3E' }}>
@@ -63,30 +75,30 @@ export function AdminAnalytics() {
                 {change}
               </span>
             </div>
-            <div className="text-2xl font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>{value}</div>
-            <div className="text-xs" style={{ color: '#B8B1A8' }}>{label}</div>
+            <div className="text-2xl font-semibold mb-1 transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>{value}</div>
+            <div className="text-xs transition-colors" style={{ color: mutedText }}>{label}</div>
           </div>
         ))}
       </div>
 
       {/* Revenue chart */}
-      <div className="rounded-2xl p-6" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+      <div className="rounded-2xl p-6 transition-colors" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-lg font-semibold" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Weekly Revenue vs Last Year</h2>
-            <p className="text-xs mt-1" style={{ color: '#B8B1A8' }}>8-week rolling comparison</p>
+            <h2 className="text-lg font-semibold transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Weekly Revenue vs Last Year</h2>
+            <p className="text-xs mt-1 transition-colors" style={{ color: mutedText }}>8-week rolling comparison</p>
           </div>
           <div className="flex items-center gap-4 text-xs">
-            <div className="flex items-center gap-2"><div className="w-6 h-0.5" style={{ backgroundColor: '#C9A86A' }} /><span style={{ color: '#B8B1A8' }}>2026</span></div>
-            <div className="flex items-center gap-2"><div className="w-6 h-0.5 border-t border-dashed" style={{ borderColor: '#5C7A38' }} /><span style={{ color: '#B8B1A8' }}>2025</span></div>
+            <div className="flex items-center gap-2"><div className="w-6 h-0.5" style={{ backgroundColor: '#C9A86A' }} /><span style={{ color: mutedText }}>2026</span></div>
+            <div className="flex items-center gap-2"><div className="w-6 h-0.5 border-t border-dashed" style={{ borderColor: '#5C7A38' }} /><span style={{ color: mutedText }}>2025</span></div>
           </div>
         </div>
         <ResponsiveContainer width="100%" height={240}>
           <LineChart data={revenueData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(201,168,106,0.08)" />
-            <XAxis dataKey="week" tick={{ fill: '#B8B1A8', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: '#B8B1A8', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `€${(v / 1000).toFixed(0)}k`} />
-            <Tooltip contentStyle={tooltipStyle} formatter={(v: number) => [`€${v.toLocaleString()}`, '']} />
+            <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+            <XAxis dataKey="week" tick={{ fill: mutedText, fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: mutedText, fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `€${(v / 1000).toFixed(0)}k`} />
+            <Tooltip contentStyle={{ backgroundColor: tooltipBg, border: `1px solid ${borderColor}`, borderRadius: 12, color: tooltipText, fontFamily: 'Inter', fontSize: 12 }} formatter={(v: number) => [`€${v.toLocaleString()}`, '']} />
             <Line type="monotone" dataKey="revenue" stroke="#C9A86A" strokeWidth={2.5} dot={{ fill: '#C9A86A', r: 4 }} />
             <Line type="monotone" dataKey="lastYear" stroke="#5C7A38" strokeWidth={1.5} strokeDasharray="5 5" dot={false} />
           </LineChart>
@@ -95,15 +107,15 @@ export function AdminAnalytics() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Customer retention */}
-        <div className="rounded-2xl p-6" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
-          <h2 className="text-lg font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Customer Retention</h2>
-          <p className="text-xs mb-5" style={{ color: '#B8B1A8' }}>New vs Returning guests</p>
+        <div className="rounded-2xl p-6 transition-colors" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
+          <h2 className="text-lg font-semibold mb-1 transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Customer Retention</h2>
+          <p className="text-xs mb-5 transition-colors" style={{ color: mutedText }}>New vs Returning guests</p>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={retentionData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(201,168,106,0.08)" />
-              <XAxis dataKey="month" tick={{ fill: '#B8B1A8', fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#B8B1A8', fontSize: 11 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={tooltipStyle} />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+              <XAxis dataKey="month" tick={{ fill: mutedText, fontSize: 11 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: mutedText, fontSize: 11 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ backgroundColor: tooltipBg, border: `1px solid ${borderColor}`, borderRadius: 12, color: tooltipText, fontFamily: 'Inter', fontSize: 12 }} />
               <Bar dataKey="returning" fill="#C9A86A" radius={[4, 4, 0, 0]} name="Returning" stackId="a" />
               <Bar dataKey="new" fill="#5C7A38" radius={[4, 4, 0, 0]} name="New" stackId="a" />
             </BarChart>
@@ -111,9 +123,9 @@ export function AdminAnalytics() {
         </div>
 
         {/* Peak hours */}
-        <div className="rounded-2xl p-6" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
-          <h2 className="text-lg font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Peak Dining Hours</h2>
-          <p className="text-xs mb-5" style={{ color: '#B8B1A8' }}>Average covers by time slot</p>
+        <div className="rounded-2xl p-6 transition-colors" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
+          <h2 className="text-lg font-semibold mb-1 transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Peak Dining Hours</h2>
+          <p className="text-xs mb-5 transition-colors" style={{ color: mutedText }}>Average covers by time slot</p>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={peakHours}>
               <defs>
@@ -122,10 +134,10 @@ export function AdminAnalytics() {
                   <stop offset="95%" stopColor="#9B2D3E" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(201,168,106,0.08)" />
-              <XAxis dataKey="hour" tick={{ fill: '#B8B1A8', fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#B8B1A8', fontSize: 11 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={tooltipStyle} />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+              <XAxis dataKey="hour" tick={{ fill: mutedText, fontSize: 10 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: mutedText, fontSize: 11 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ backgroundColor: tooltipBg, border: `1px solid ${borderColor}`, borderRadius: 12, color: tooltipText, fontFamily: 'Inter', fontSize: 12 }} />
               <Area type="monotone" dataKey="covers" stroke="#9B2D3E" strokeWidth={2} fill="url(#peakGrad)" />
             </AreaChart>
           </ResponsiveContainer>
@@ -133,22 +145,22 @@ export function AdminAnalytics() {
       </div>
 
       {/* Top dishes */}
-      <div className="rounded-2xl p-6" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
-        <h2 className="text-lg font-semibold mb-5" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Top Performing Dishes</h2>
+      <div className="rounded-2xl p-6 transition-colors" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
+        <h2 className="text-lg font-semibold mb-5 transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Top Performing Dishes</h2>
         <div className="space-y-4">
           {dishMetrics.map((dish, i) => (
             <div key={dish.name} className="flex items-center gap-4">
-              <span className="text-sm w-4" style={{ color: '#B8B1A8' }}>{i + 1}</span>
+              <span className="text-sm w-4 transition-colors" style={{ color: mutedText }}>{i + 1}</span>
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium" style={{ color: '#F3ECDD' }}>{dish.name}</span>
+                  <span className="text-sm font-medium transition-colors" style={{ color: textColor }}>{dish.name}</span>
                   <div className="flex items-center gap-4 text-xs">
                     <span style={{ color: '#C9A86A' }}>€{dish.revenue.toLocaleString()}</span>
-                    <span style={{ color: '#B8B1A8' }}>{dish.orders} orders</span>
+                    <span style={{ color: mutedText }}>{dish.orders} orders</span>
                     <span style={{ color: '#5C7A38' }}>{dish.margin}% margin</span>
                   </div>
                 </div>
-                <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(201,168,106,0.12)' }}>
+                <div className="h-1.5 rounded-full overflow-hidden transition-colors" style={{ backgroundColor: isDark ? 'rgba(201,168,106,0.12)' : 'rgba(201,168,106,0.2)' }}>
                   <div className="h-full rounded-full transition-all" style={{ width: `${(dish.orders / 284) * 100}%`, backgroundColor: i === 0 ? '#C9A86A' : i === 1 ? '#5C7A38' : '#9B2D3E' }} />
                 </div>
               </div>
