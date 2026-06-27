@@ -29,6 +29,9 @@ import { CustomersManagement } from "./pages/platform/CustomersManagement";
 import { ProductsManagement } from "./pages/platform/ProductsManagement";
 import { OrdersDashboard } from "./pages/platform/OrdersDashboard";
 import { ReportsDashboard } from "./pages/platform/ReportsDashboard";
+import { CustomerPortal } from "./pages/customer/CustomerPortal";
+import { BranchManagerDashboard } from "./pages/manager/BranchManagerDashboard";
+import { EmployeeDashboard } from "./pages/employee/EmployeeDashboard";
 import { PaniteRoot } from "./pages/panite/PaniteRoot";
 import { PaniteHome } from "./pages/panite/PaniteHome";
 
@@ -61,6 +64,20 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: PaniteHome },
     ],
+  },
+
+  // Role-Based Dashboards
+  {
+    path: "/customer",
+    Component: CustomerPortal,
+  },
+  {
+    path: "/manager",
+    Component: BranchManagerDashboard,
+  },
+  {
+    path: "/employee",
+    Component: EmployeeDashboard,
   },
 
   // Platform Admin (Multi-brand SaaS)
