@@ -121,7 +121,7 @@ export function Home() {
               transition={{ duration: 1, delay: 0.9 }}
             >
               <Link
-                to="/reservation"
+                to="/basilico/reservation"
                 className="inline-flex items-center gap-3 px-10 py-4 rounded-full transition-all duration-500 border-2 text-sm tracking-widest uppercase"
                 style={{
                   borderColor: "var(--brand-gold)",
@@ -263,7 +263,7 @@ export function Home() {
             className="text-center mt-16"
           >
             <Link
-              to="/menu"
+              to="/basilico/menu"
               className="inline-flex items-center gap-2 text-lg transition-all duration-300"
               style={{
                 fontFamily: "Inter",
@@ -350,7 +350,7 @@ export function Home() {
                 develop with patience and care.
               </p>
               <Link
-                to="/about"
+                to="/basilico/about"
                 className="inline-flex items-center gap-2 pt-4 text-lg transition-all duration-300"
                 style={{
                   fontFamily: "Inter",
@@ -547,7 +547,7 @@ export function Home() {
             Reserve your table and let us transport you to the heart of Italy
           </p>
           <Link
-            to="/reservation"
+            to="/basilico/reservation"
             className="inline-flex items-center gap-3 px-12 py-5 rounded-full transition-all duration-500 text-lg border-2"
             style={{
               borderColor: "var(--brand-gold)",

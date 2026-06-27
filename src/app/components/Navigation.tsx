@@ -25,11 +25,11 @@ export function Navigation() {
   }, [location]);
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/menu', label: 'Menu' },
-    { path: '/about', label: 'Our Story' },
-    { path: '/gallery', label: 'Gallery' },
-    { path: '/catering', label: 'Catering' },
+    { path: '/basilico', label: 'Home' },
+    { path: '/basilico/menu', label: 'Menu' },
+    { path: '/basilico/about', label: 'Our Story' },
+    { path: '/basilico/gallery', label: 'Gallery' },
+    { path: '/basilico/catering', label: 'Catering' },
   ];
 
   return (
@@ -47,7 +47,7 @@ export function Navigation() {
 >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
-            <Link to="/" className="flex flex-col">
+            <Link to="/basilico" className="flex flex-col">
               <span className="font-['Great_Vibes'] text-3xl lg:text-4xl" style={{ color: 'var(--brand-olive)' }}>
                 Basilico
               </span>
@@ -90,7 +90,7 @@ export function Navigation() {
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
               </button>
               <Link
-                to="/reservation"
+                to="/basilico/reservation"
                 className="px-8 py-3 rounded-full transition-all duration-300 border-2 text-sm tracking-wide"
                 style={{
                   borderColor: 'var(--brand-olive)',
@@ -165,7 +165,7 @@ export function Navigation() {
                 transition={{ delay: navLinks.length * 0.1 }}
               >
                 <Link
-                  to="/reservation"
+                  to="/basilico/reservation"
                   className="px-12 py-4 rounded-full border-2 text-lg"
                   style={{
                     borderColor: 'var(--brand-olive)',
@@ -183,7 +183,7 @@ export function Navigation() {
         )}
       </AnimatePresence>
 
-      {showMobileCTA && location.pathname !== '/reservation' && !isMobileMenuOpen && (
+      {showMobileCTA && !location.pathname.includes('/reservation') && !isMobileMenuOpen && (
         <motion.div
           initial={{ y: 100 }}
           animate={{ y: 0 }}
@@ -192,7 +192,7 @@ export function Navigation() {
           style={{ backgroundColor: 'var(--brand-bg)' }}
         >
           <Link
-            to="/reservation"
+            to="/basilico/reservation"
             className="block w-full py-4 rounded-full text-center text-lg shadow-lg"
             style={{
               backgroundColor: 'var(--brand-olive)',
