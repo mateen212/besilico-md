@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Edit3, Eye, Save, Globe, Instagram, Facebook, ChevronRight } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const sections = [
   { id: 'hero', label: 'Hero Slider', description: 'Homepage hero section and CTA', editable: true },
@@ -24,8 +25,17 @@ const heroSlides = [
 const inputStyle = { backgroundColor: '#252320', color: '#F3ECDD', border: '1px solid rgba(201,168,106,0.15)' };
 
 export function AdminContent() {
+  const { isDark } = useTheme();
   const [activeSection, setActiveSection] = useState('hero');
   const [saved, setSaved] = useState(false);
+
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#666666';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
+  const inputBg = isDark ? '#252320' : '#F8F6F3';
+  const inputBorder = isDark ? 'rgba(201,168,106,0.15)' : 'rgba(201,168,106,0.2)';
 
   const handleSave = () => {
     setSaved(true);
@@ -33,17 +43,17 @@ export function AdminContent() {
   };
 
   return (
-    <div className="p-6 space-y-6" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6 space-y-6 transition-colors" style={{ backgroundColor: bgColor, minHeight: '100%' }}>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Content Management</h1>
-          <p className="text-sm" style={{ color: '#B8B1A8' }}>Edit website content without code</p>
+          <h1 className="text-2xl font-semibold mb-1 transition-colors" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Content Management</h1>
+          <p className="text-sm transition-colors" style={{ color: mutedText }}>Edit website content without code</p>
         </div>
         <div className="flex items-center gap-3">
-          <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm" style={{ backgroundColor: 'rgba(201,168,106,0.1)', color: '#C9A86A', border: '1px solid rgba(201,168,106,0.2)' }}>
+          <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm transition-colors" style={{ backgroundColor: isDark ? 'rgba(201,168,106,0.1)' : 'rgba(201,168,106,0.15)', color: '#C9A86A', border: `1px solid ${borderColor}` }}>
             <Eye size={15} /> Preview
           </a>
-          <button onClick={handleSave} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium" style={{ backgroundColor: saved ? '#5C7A38' : '#C9A86A', color: '#12110F' }}>
+          <button onClick={handleSave} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors" style={{ backgroundColor: saved ? '#5C7A38' : '#C9A86A', color: bgColor }}>
             <Save size={15} /> {saved ? 'Saved!' : 'Save Changes'}
           </button>
         </div>

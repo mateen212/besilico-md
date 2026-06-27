@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Plus, Shield, Eye, Edit2, Trash2, Lock, Activity } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 type Role = 'Admin' | 'Manager' | 'Chef' | 'Staff' | 'Reception';
 
@@ -28,14 +29,23 @@ const activityLog = [
 ];
 
 export function AdminUsers() {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#999999';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
+  const inputBg = isDark ? '#252320' : '#F5F5F5';
+  const hoverBg = isDark ? 'rgba(201,168,106,0.08)' : 'rgba(201,168,106,0.1)';
+  
   const [activeTab, setActiveTab] = useState<'users' | 'activity'>('users');
 
   return (
-    <div className="p-6 space-y-6" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6 space-y-6" style={{ backgroundColor: bgColor, minHeight: '100%', transition: 'background-color 0.3s' }}>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>User Management</h1>
-          <p className="text-sm" style={{ color: '#B8B1A8' }}>{users.length} users · {users.filter(u => u.status === 'Active').length} active</p>
+          <h1 className="text-2xl font-semibold mb-1" style={{ color: textColor, fontFamily: 'Playfair Display' }}>User Management</h1>
+          <p className="text-sm" style={{ color: mutedText }}>{users.length} users · {users.filter(u => u.status === 'Active').length} active</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium" style={{ backgroundColor: '#C9A86A', color: '#12110F' }}>
           <Plus size={15} /> Invite User
@@ -43,7 +53,7 @@ export function AdminUsers() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 p-1 rounded-xl w-fit" style={{ backgroundColor: '#1B1917' }}>
+      <div className="flex gap-2 p-1 rounded-xl w-fit" style={{ backgroundColor: cardBg }}>
         {(['users', 'activity'] as const).map(tab => (
           <button
             key={tab}
@@ -58,12 +68,12 @@ export function AdminUsers() {
       </div>
 
       {activeTab === 'users' ? (
-        <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(201,168,106,0.10)' }}>
                 {['Member', 'Role', 'Status', '2FA', 'Last Login', ''].map(h => (
-                  <th key={h} className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: '#B8B1A8' }}>{h}</th>
+                  <th key={h} className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: mutedText }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -76,8 +86,8 @@ export function AdminUsers() {
                         {user.avatar}
                       </div>
                       <div>
-                        <div className="text-sm font-medium" style={{ color: '#F3ECDD' }}>{user.name}</div>
-                        <div className="text-xs" style={{ color: '#B8B1A8' }}>{user.email}</div>
+                        <div className="text-sm font-medium" style={{ color: textColor }}>{user.name}</div>
+                        <div className="text-xs" style={{ color: mutedText }}>{user.email}</div>
                       </div>
                     </div>
                   </td>
@@ -99,11 +109,11 @@ export function AdminUsers() {
                     </div>
                   </td>
                   <td className="p-4">
-                    <span className="text-xs" style={{ color: '#B8B1A8' }}>{user.lastLogin}</span>
+                    <span className="text-xs" style={{ color: mutedText }}>{user.lastLogin}</span>
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ color: '#B8B1A8', backgroundColor: 'rgba(184,177,168,0.1)' }}>
+                      <button className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ color: mutedText, backgroundColor: 'rgba(184,177,168,0.1)' }}>
                         <Eye size={13} />
                       </button>
                       <button className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ color: '#C9A86A', backgroundColor: 'rgba(201,168,106,0.1)' }}>
@@ -122,7 +132,7 @@ export function AdminUsers() {
           </table>
         </div>
       ) : (
-        <div className="rounded-2xl p-5 space-y-3" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+        <div className="rounded-2xl p-5 space-y-3" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
           {activityLog.map((log, i) => (
             <div key={i} className="flex items-start gap-3 py-3" style={{ borderBottom: i < activityLog.length - 1 ? '1px solid rgba(201,168,106,0.06)' : 'none' }}>
               <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-semibold" style={{ backgroundColor: 'rgba(201,168,106,0.15)', color: '#C9A86A' }}>
@@ -130,7 +140,7 @@ export function AdminUsers() {
               </div>
               <div className="flex-1">
                 <span className="text-sm font-medium" style={{ color: '#C9A86A' }}>{log.user}</span>
-                <span className="text-sm" style={{ color: '#B8B1A8' }}> {log.action}</span>
+                <span className="text-sm" style={{ color: mutedText }}> {log.action}</span>
                 <p className="text-xs mt-1" style={{ color: 'rgba(184,177,168,0.5)' }}>{log.time}</p>
               </div>
             </div>
