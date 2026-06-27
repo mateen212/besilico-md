@@ -37,6 +37,7 @@ import { PanettoHome } from "./pages/panetto/PanettoHome";
 import { PanettoMenu } from "./pages/panetto/PanettoMenu";
 import { PanettoAbout } from "./pages/panetto/PanettoAbout";
 import { PanettoContact } from "./pages/panetto/PanettoContact";
+import { NotFound } from "./pages/NotFound";
 
 // Landing page that shows both brands
 export const router = createBrowserRouter([
@@ -130,6 +131,12 @@ export const router = createBrowserRouter([
       { path: "analytics", Component: AdminAnalytics },
       { path: "notifications", Component: AdminNotifications },
     ],
+  },
+
+  // Catch-all 404 route
+  {
+    path: "*",
+    Component: NotFound,
   },
 
 ]);
