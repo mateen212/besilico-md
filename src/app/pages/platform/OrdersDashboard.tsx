@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Search, Eye, Printer, Download, TrendingUp, Clock, CheckCircle, AlertCircle, XCircle } from 'lucide-react';

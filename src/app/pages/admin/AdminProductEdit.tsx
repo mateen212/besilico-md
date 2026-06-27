@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { ArrowLeft, Upload, X, Plus, GripVertical, Star, Eye, Save, Copy, Archive } from 'lucide-react';

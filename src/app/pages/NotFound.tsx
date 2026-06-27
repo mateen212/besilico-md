@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Home, Search, ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router';

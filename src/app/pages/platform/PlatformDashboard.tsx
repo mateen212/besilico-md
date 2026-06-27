@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { TrendingUp, Users, Store, ShoppingCart, DollarSign, AlertCircle } from 'lucide-react';
 

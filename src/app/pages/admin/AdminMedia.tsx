@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Search, Upload, FolderOpen, Grid, List, Trash2, Copy, Download, MoreHorizontal } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';

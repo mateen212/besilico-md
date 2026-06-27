@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Plus, Edit2, Trash2, GripVertical, Eye, EyeOff } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router';
 import { Plus, Settings, Users, ShoppingCart, TrendingUp, MapPin } from 'lucide-react';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Plus, Search, MoreVertical, Mail, Phone, MapPin, Clock, Trash2, Edit2 } from 'lucide-react';

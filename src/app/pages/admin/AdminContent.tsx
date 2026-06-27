@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Edit3, Eye, Save, Globe, Instagram, Facebook, ChevronRight } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';

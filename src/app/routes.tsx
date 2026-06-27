@@ -1,3 +1,4 @@
+import React from 'react';
 import { createBrowserRouter } from "react-router";
 import { Landing } from "./pages/Landing";
 import { Root } from "./pages/Root";

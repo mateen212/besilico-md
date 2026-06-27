@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Plus, Search, Star, TrendingUp, Heart, ShoppingCart } from 'lucide-react';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Calendar, Users, Clock, Phone, Mail, ChevronLeft, ChevronRight, Search, Filter } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Plus, Shield, Eye, Edit2, Trash2, Lock, Activity } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowRight, Sparkles, Award, Clock, Users, Leaf } from 'lucide-react';

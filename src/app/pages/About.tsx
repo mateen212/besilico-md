@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from "motion/react";
 import { MapPin, Clock, Award, Heart } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";

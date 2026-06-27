@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Calendar, Clock, CheckCircle, AlertCircle, Award, LogOut } from 'lucide-react';
 

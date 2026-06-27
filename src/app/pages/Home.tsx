@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, Award, Heart, Users } from "lucide-react";

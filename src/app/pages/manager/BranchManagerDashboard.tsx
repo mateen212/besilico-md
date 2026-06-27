@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Users, ShoppingCart, TrendingUp, Clock, AlertCircle, CheckCircle } from 'lucide-react';
 

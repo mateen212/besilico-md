@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Outlet, Link, useLocation, NavLink } from 'react-router';
 import { ThemeProvider } from '../../contexts/ThemeContext';

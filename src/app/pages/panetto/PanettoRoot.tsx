@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet } from 'react-router';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
