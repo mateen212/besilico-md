@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { ArrowLeft, Upload, X, Plus, GripVertical, Star, Eye, Save, Copy, Archive } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const spiceLevels = ['None', 'Mild', 'Medium', 'Hot', 'Very Hot'];
 const allergens = ['Gluten', 'Dairy', 'Eggs', 'Nuts', 'Seafood', 'Soy', 'Sesame'];
@@ -8,10 +9,19 @@ const categories = ['Antipasti', 'Pasta', 'Secondi', 'Dolci', 'Vini', 'Drinks'];
 const wines = ['Barolo DOCG', 'Brunello di Montalcino', 'Chianti Classico', 'Prosecco Superiore', 'Pinot Grigio', 'Vermentino', 'Verdicchio', 'Frascati'];
 
 const inputCls = 'w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all';
-const inputStyle = { backgroundColor: '#252320', color: '#F3ECDD', border: '1px solid rgba(201,168,106,0.15)' };
-const labelStyle = { color: '#B8B1A8', fontSize: '12px', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' as const };
+const inputStyle = { backgroundColor: inputBg, color: textColor, border: '1px solid rgba(201,168,106,0.15)' };
+const labelStyle = { color: mutedText, fontSize: '12px', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' as const };
 
 export function AdminProductEdit() {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#999999';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
+  const inputBg = isDark ? '#252320' : '#F5F5F5';
+  const hoverBg = isDark ? 'rgba(201,168,106,0.08)' : 'rgba(201,168,106,0.1)';
+  
   const { id } = useParams();
   const isNew = !id;
 
@@ -28,14 +38,14 @@ export function AdminProductEdit() {
     setSelectedAllergens(s => s.includes(a) ? s.filter(x => x !== a) : [...s, a]);
 
   return (
-    <div className="p-6" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6" style={{ backgroundColor: bgColor, minHeight: '100%', transition: 'background-color 0.3s' }}>
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
         <Link to="/admin/products" className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(201,168,106,0.1)', color: '#C9A86A' }}>
           <ArrowLeft size={18} />
         </Link>
         <div className="flex-1">
-          <h1 className="text-2xl font-semibold" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>
+          <h1 className="text-2xl font-semibold" style={{ color: textColor, fontFamily: 'Playfair Display' }}>
             {isNew ? 'New Product' : 'Edit Product'}
           </h1>
         </div>
@@ -59,19 +69,19 @@ export function AdminProductEdit() {
         {/* Left: images */}
         <div className="xl:col-span-1 space-y-6">
           {/* Main image */}
-          <div className="rounded-2xl p-5" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+          <div className="rounded-2xl p-5" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
             <p className="mb-3" style={labelStyle}>Main Image</p>
             {images[0] ? (
               <div className="relative rounded-xl overflow-hidden aspect-video mb-3">
                 <img src={images[0]} alt="main" className="w-full h-full object-cover" />
-                <button className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(18,17,15,0.8)', color: '#F3ECDD' }}>
+                <button className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(18,17,15,0.8)', color: textColor }}>
                   <X size={14} />
                 </button>
               </div>
             ) : null}
             <div
               className="border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all"
-              style={{ borderColor: 'rgba(201,168,106,0.2)', color: '#B8B1A8' }}
+              style={{ borderColor: 'rgba(201,168,106,0.2)', color: mutedText }}
             >
               <Upload size={24} className="mb-2" style={{ color: '#C9A86A' }} />
               <span className="text-sm">Drop image or click to upload</span>
@@ -80,7 +90,7 @@ export function AdminProductEdit() {
           </div>
 
           {/* Gallery images */}
-          <div className="rounded-2xl p-5" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+          <div className="rounded-2xl p-5" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
             <p className="mb-3" style={labelStyle}>Gallery Images</p>
             <div className="grid grid-cols-3 gap-2 mb-3">
               {[
@@ -90,7 +100,7 @@ export function AdminProductEdit() {
                 <div key={i} className="relative rounded-lg overflow-hidden aspect-square group">
                   <img src={img} alt="" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1">
-                    <button className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: 'rgba(18,17,15,0.8)', color: '#F3ECDD' }}>
+                    <button className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: 'rgba(18,17,15,0.8)', color: textColor }}>
                       <GripVertical size={12} />
                     </button>
                     <button className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: 'rgba(18,17,15,0.8)', color: '#9B2D3E' }}>
@@ -106,11 +116,11 @@ export function AdminProductEdit() {
           </div>
 
           {/* Toggles */}
-          <div className="rounded-2xl p-5 space-y-4" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+          <div className="rounded-2xl p-5 space-y-4" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium" style={{ color: '#F3ECDD' }}>Featured Product</p>
-                <p className="text-xs mt-0.5" style={{ color: '#B8B1A8' }}>Show on homepage</p>
+                <p className="text-sm font-medium" style={{ color: textColor }}>Featured Product</p>
+                <p className="text-xs mt-0.5" style={{ color: mutedText }}>Show on homepage</p>
               </div>
               <button
                 onClick={() => setFeatured(!featured)}
@@ -122,8 +132,8 @@ export function AdminProductEdit() {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium" style={{ color: '#F3ECDD' }}>Available</p>
-                <p className="text-xs mt-0.5" style={{ color: '#B8B1A8' }}>Show on menu</p>
+                <p className="text-sm font-medium" style={{ color: textColor }}>Available</p>
+                <p className="text-xs mt-0.5" style={{ color: mutedText }}>Show on menu</p>
               </div>
               <button
                 onClick={() => setAvailable(!available)}
@@ -139,8 +149,8 @@ export function AdminProductEdit() {
         {/* Right: details */}
         <div className="xl:col-span-2 space-y-6">
           {/* Basic info */}
-          <div className="rounded-2xl p-6" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
-            <h2 className="text-base font-semibold mb-5" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Product Information</h2>
+          <div className="rounded-2xl p-6" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
+            <h2 className="text-base font-semibold mb-5" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Product Information</h2>
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -176,8 +186,8 @@ export function AdminProductEdit() {
           </div>
 
           {/* Pricing & Details */}
-          <div className="rounded-2xl p-6" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
-            <h2 className="text-base font-semibold mb-5" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Pricing & Nutritional Details</h2>
+          <div className="rounded-2xl p-6" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
+            <h2 className="text-base font-semibold mb-5" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Pricing & Nutritional Details</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div>
                 <label className="block mb-2" style={labelStyle}>Price (€)</label>

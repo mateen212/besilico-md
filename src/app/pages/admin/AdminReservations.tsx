@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Calendar, Users, Clock, Phone, Mail, ChevronLeft, ChevronRight, Search, Filter } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 type Status = 'Pending' | 'Confirmed' | 'Arrived' | 'Completed' | 'Cancelled' | 'No-show';
 
@@ -26,6 +27,15 @@ const statusColors: Record<Status, { bg: string; text: string }> = {
 const statusList: Status[] = ['Pending', 'Confirmed', 'Arrived', 'Completed', 'Cancelled', 'No-show'];
 
 export function AdminReservations() {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#999999';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
+  const inputBg = isDark ? '#252320' : '#F5F5F5';
+  const hoverBg = isDark ? 'rgba(201,168,106,0.08)' : 'rgba(201,168,106,0.1)';
+  
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState<Status | 'All'>('All');
   const [selected, setSelected] = useState<number | null>(null);
@@ -42,11 +52,11 @@ export function AdminReservations() {
   const totalGuests = reservations.filter(r => r.date === '2026-06-19').reduce((s, r) => s + r.guests, 0);
 
   return (
-    <div className="p-6 space-y-6" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6 space-y-6" style={{ backgroundColor: bgColor, minHeight: '100%', transition: 'background-color 0.3s' }}>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Reservations</h1>
-          <p className="text-sm" style={{ color: '#B8B1A8' }}>Managing {reservations.length} reservations</p>
+          <h1 className="text-2xl font-semibold mb-1" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Reservations</h1>
+          <p className="text-sm" style={{ color: mutedText }}>Managing {reservations.length} reservations</p>
         </div>
         <button className="px-4 py-2 rounded-xl text-sm font-medium" style={{ backgroundColor: '#C9A86A', color: '#12110F' }}>
           + New Reservation
@@ -60,13 +70,13 @@ export function AdminReservations() {
           { label: 'Pending Confirmation', value: pendingCount, icon: Clock, color: '#9B2D3E' },
           { label: "Tonight's Guests", value: totalGuests, icon: Users, color: '#5C7A38' },
         ].map(({ label, value, icon: Icon, color }) => (
-          <div key={label} className="rounded-2xl p-4 flex items-center gap-4" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+          <div key={label} className="rounded-2xl p-4 flex items-center gap-4" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}18` }}>
               <Icon size={18} style={{ color }} />
             </div>
             <div>
-              <div className="text-xl font-semibold" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>{value}</div>
-              <div className="text-xs" style={{ color: '#B8B1A8' }}>{label}</div>
+              <div className="text-xl font-semibold" style={{ color: textColor, fontFamily: 'Playfair Display' }}>{value}</div>
+              <div className="text-xs" style={{ color: mutedText }}>{label}</div>
             </div>
           </div>
         ))}
@@ -76,15 +86,15 @@ export function AdminReservations() {
         {/* List */}
         <div className="lg:col-span-2 space-y-4">
           {/* Filters */}
-          <div className="rounded-2xl p-4 space-y-3" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+          <div className="rounded-2xl p-4 space-y-3" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
             <div className="relative">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#B8B1A8' }} />
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: mutedText }} />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search by name or email..."
                 className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none"
-                style={{ backgroundColor: '#252320', color: '#F3ECDD', border: '1px solid rgba(201,168,106,0.12)' }}
+                style={{ backgroundColor: inputBg, color: textColor, border: '1px solid rgba(201,168,106,0.12)' }}
               />
             </div>
             <div className="flex gap-2 overflow-x-auto">
@@ -121,19 +131,19 @@ export function AdminReservations() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium" style={{ color: '#F3ECDD' }}>{r.name}</span>
+                      <span className="text-sm font-medium" style={{ color: textColor }}>{r.name}</span>
                       <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: statusColors[r.status].bg, color: statusColors[r.status].text }}>
                         {r.status}
                       </span>
                     </div>
-                    <div className="text-xs mt-0.5" style={{ color: '#B8B1A8' }}>{r.date} · {r.time} · {r.guests} guests</div>
+                    <div className="text-xs mt-0.5" style={{ color: mutedText }}>{r.date} · {r.time} · {r.guests} guests</div>
                   </div>
                   {r.deposit > 0 && (
                     <span className="text-xs px-2 py-1 rounded-lg" style={{ backgroundColor: 'rgba(92,122,56,0.15)', color: '#5C7A38' }}>€{r.deposit} deposit</span>
                   )}
                 </div>
                 {r.request && (
-                  <p className="text-xs mt-2 ml-13" style={{ color: '#B8B1A8', marginLeft: '52px' }}>"{r.request}"</p>
+                  <p className="text-xs mt-2 ml-13" style={{ color: mutedText, marginLeft: '52px' }}>"{r.request}"</p>
                 )}
               </button>
             ))}
@@ -143,12 +153,12 @@ export function AdminReservations() {
         {/* Detail panel */}
         <div>
           {selectedRes ? (
-            <div className="rounded-2xl p-5 sticky top-6" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+            <div className="rounded-2xl p-5 sticky top-6" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
               <div className="text-center mb-5">
                 <div className="w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center text-lg font-semibold" style={{ backgroundColor: 'rgba(201,168,106,0.15)', color: '#C9A86A' }}>
                   {selectedRes.name.split(' ').map(n => n[0]).join('')}
                 </div>
-                <h3 className="text-lg font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>{selectedRes.name}</h3>
+                <h3 className="text-lg font-semibold mb-1" style={{ color: textColor, fontFamily: 'Playfair Display' }}>{selectedRes.name}</h3>
                 <span className="text-xs px-3 py-1 rounded-full" style={{ backgroundColor: statusColors[selectedRes.status].bg, color: statusColors[selectedRes.status].text }}>
                   {selectedRes.status}
                 </span>
@@ -163,27 +173,27 @@ export function AdminReservations() {
                 ].map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-center gap-3 text-sm">
                     <Icon size={15} style={{ color: '#C9A86A' }} />
-                    <span style={{ color: '#B8B1A8' }}>{label}:</span>
-                    <span style={{ color: '#F3ECDD' }}>{value}</span>
+                    <span style={{ color: mutedText }}>{label}:</span>
+                    <span style={{ color: textColor }}>{value}</span>
                   </div>
                 ))}
               </div>
               {selectedRes.request && (
                 <div className="p-3 rounded-xl mb-5" style={{ backgroundColor: 'rgba(201,168,106,0.06)', border: '1px solid rgba(201,168,106,0.12)' }}>
-                  <p className="text-xs mb-1" style={{ color: '#B8B1A8' }}>Special Request</p>
-                  <p className="text-sm" style={{ color: '#F3ECDD' }}>{selectedRes.request}</p>
+                  <p className="text-xs mb-1" style={{ color: mutedText }}>Special Request</p>
+                  <p className="text-sm" style={{ color: textColor }}>{selectedRes.request}</p>
                 </div>
               )}
               <div className="space-y-2">
-                <button className="w-full py-2.5 rounded-xl text-sm font-medium" style={{ backgroundColor: '#5C7A38', color: '#F3ECDD' }}>Confirm</button>
+                <button className="w-full py-2.5 rounded-xl text-sm font-medium" style={{ backgroundColor: '#5C7A38', color: textColor }}>Confirm</button>
                 <button className="w-full py-2.5 rounded-xl text-sm" style={{ backgroundColor: 'rgba(201,168,106,0.1)', color: '#C9A86A' }}>Send Reminder</button>
                 <button className="w-full py-2.5 rounded-xl text-sm" style={{ backgroundColor: 'rgba(155,45,62,0.1)', color: '#9B2D3E' }}>Cancel</button>
               </div>
             </div>
           ) : (
-            <div className="rounded-2xl p-8 text-center" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+            <div className="rounded-2xl p-8 text-center" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
               <Calendar size={32} className="mx-auto mb-3" style={{ color: 'rgba(201,168,106,0.3)' }} />
-              <p className="text-sm" style={{ color: '#B8B1A8' }}>Select a reservation to view details</p>
+              <p className="text-sm" style={{ color: mutedText }}>Select a reservation to view details</p>
             </div>
           )}
         </div>

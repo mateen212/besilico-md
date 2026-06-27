@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Search, Upload, FolderOpen, Grid, List, Trash2, Copy, Download, MoreHorizontal } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const folders = ['All', 'Products', 'Gallery', 'Hero Images', 'Chef Images', 'Events'];
 
@@ -19,6 +20,15 @@ const mediaFiles = [
 ];
 
 export function AdminMedia() {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? '#12110F' : '#F8F6F3';
+  const cardBg = isDark ? '#1B1917' : '#FFFFFF';
+  const textColor = isDark ? '#F3ECDD' : '#2D2D2D';
+  const mutedText = isDark ? '#B8B1A8' : '#999999';
+  const borderColor = isDark ? 'rgba(201,168,106,0.10)' : 'rgba(201,168,106,0.15)';
+  const inputBg = isDark ? '#252320' : '#F5F5F5';
+  const hoverBg = isDark ? 'rgba(201,168,106,0.08)' : 'rgba(201,168,106,0.1)';
+  
   const [folder, setFolder] = useState('All');
   const [search, setSearch] = useState('');
   const [view, setView] = useState<'grid' | 'list'>('grid');
@@ -33,11 +43,11 @@ export function AdminMedia() {
     setSelected(s => s.includes(id) ? s.filter(x => x !== id) : [...s, id]);
 
   return (
-    <div className="p-6 space-y-6" style={{ backgroundColor: '#12110F', minHeight: '100%' }}>
+    <div className="p-6 space-y-6" style={{ backgroundColor: bgColor, minHeight: '100%', transition: 'background-color 0.3s' }}>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F3ECDD', fontFamily: 'Playfair Display' }}>Media Library</h1>
-          <p className="text-sm" style={{ color: '#B8B1A8' }}>{mediaFiles.length} files · 38.4 MB total</p>
+          <h1 className="text-2xl font-semibold mb-1" style={{ color: textColor, fontFamily: 'Playfair Display' }}>Media Library</h1>
+          <p className="text-sm" style={{ color: mutedText }}>{mediaFiles.length} files · 38.4 MB total</p>
         </div>
         <label className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium cursor-pointer" style={{ backgroundColor: '#C9A86A', color: '#12110F' }}>
           <Upload size={15} /> Upload Files
@@ -48,8 +58,8 @@ export function AdminMedia() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* Folders */}
         <div className="lg:col-span-1">
-          <div className="rounded-2xl p-4" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
-            <p className="text-xs font-medium mb-3 uppercase tracking-wider" style={{ color: '#B8B1A8' }}>Folders</p>
+          <div className="rounded-2xl p-4" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
+            <p className="text-xs font-medium mb-3 uppercase tracking-wider" style={{ color: mutedText }}>Folders</p>
             <div className="space-y-1">
               {folders.map(f => (
                 <button
@@ -75,18 +85,18 @@ export function AdminMedia() {
         {/* Files */}
         <div className="lg:col-span-4 space-y-4">
           {/* Toolbar */}
-          <div className="rounded-2xl p-4 flex gap-3" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+          <div className="rounded-2xl p-4 flex gap-3" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
             <div className="relative flex-1">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#B8B1A8' }} />
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: mutedText }} />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search files..."
                 className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none"
-                style={{ backgroundColor: '#252320', color: '#F3ECDD', border: '1px solid rgba(201,168,106,0.12)' }}
+                style={{ backgroundColor: inputBg, color: textColor, border: '1px solid rgba(201,168,106,0.12)' }}
               />
             </div>
-            <div className="flex items-center gap-1 p-1 rounded-xl" style={{ backgroundColor: '#252320' }}>
+            <div className="flex items-center gap-1 p-1 rounded-xl" style={{ backgroundColor: inputBg }}>
               <button onClick={() => setView('grid')} className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: view === 'grid' ? '#C9A86A' : 'transparent', color: view === 'grid' ? '#12110F' : '#B8B1A8' }}>
                 <Grid size={16} />
               </button>
@@ -111,7 +121,7 @@ export function AdminMedia() {
           {view === 'grid' ? (
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
               {/* Upload zone */}
-              <label className="border-2 border-dashed rounded-2xl aspect-square flex flex-col items-center justify-center cursor-pointer transition-all" style={{ borderColor: 'rgba(201,168,106,0.2)', color: '#B8B1A8' }}>
+              <label className="border-2 border-dashed rounded-2xl aspect-square flex flex-col items-center justify-center cursor-pointer transition-all" style={{ borderColor: 'rgba(201,168,106,0.2)', color: mutedText }}>
                 <Upload size={24} className="mb-2" style={{ color: '#C9A86A' }} />
                 <span className="text-xs">Upload</span>
                 <input type="file" multiple accept="image/*" className="hidden" />
@@ -129,7 +139,7 @@ export function AdminMedia() {
                     <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'rgba(201,168,106,0.9)', color: '#12110F' }} onClick={e => { e.stopPropagation(); navigator.clipboard.writeText(file.url); }}>
                       <Copy size={14} />
                     </button>
-                    <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'rgba(155,45,62,0.9)', color: '#F3ECDD' }}>
+                    <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'rgba(155,45,62,0.9)', color: textColor }}>
                       <Trash2 size={14} />
                     </button>
                   </div>
@@ -139,21 +149,21 @@ export function AdminMedia() {
                     </div>
                   )}
                   <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <p className="text-xs truncate" style={{ color: '#F3ECDD' }}>{file.name}</p>
-                    <p className="text-xs" style={{ color: '#B8B1A8' }}>{file.size}</p>
+                    <p className="text-xs truncate" style={{ color: textColor }}>{file.name}</p>
+                    <p className="text-xs" style={{ color: mutedText }}>{file.size}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: '#1B1917', border: '1px solid rgba(201,168,106,0.10)' }}>
+            <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}>
               <table className="w-full">
                 <thead>
                   <tr style={{ borderBottom: '1px solid rgba(201,168,106,0.10)' }}>
-                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: '#B8B1A8' }}>File</th>
-                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: '#B8B1A8' }}>Folder</th>
-                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: '#B8B1A8' }}>Size</th>
-                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: '#B8B1A8' }}>Date</th>
+                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: mutedText }}>File</th>
+                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: mutedText }}>Folder</th>
+                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: mutedText }}>Size</th>
+                    <th className="p-4 text-left text-xs uppercase tracking-wider" style={{ color: mutedText }}>Date</th>
                     <th className="p-4" />
                   </tr>
                 </thead>
@@ -163,14 +173,14 @@ export function AdminMedia() {
                       <td className="p-4">
                         <div className="flex items-center gap-3">
                           <img src={file.url} alt="" className="w-10 h-10 rounded-lg object-cover flex-shrink-0" />
-                          <span className="text-sm" style={{ color: '#F3ECDD' }}>{file.name}</span>
+                          <span className="text-sm" style={{ color: textColor }}>{file.name}</span>
                         </div>
                       </td>
                       <td className="p-4"><span className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(201,168,106,0.1)', color: '#C9A86A' }}>{file.folder}</span></td>
-                      <td className="p-4"><span className="text-sm" style={{ color: '#B8B1A8' }}>{file.size}</span></td>
-                      <td className="p-4"><span className="text-sm" style={{ color: '#B8B1A8' }}>{file.date}</span></td>
+                      <td className="p-4"><span className="text-sm" style={{ color: mutedText }}>{file.size}</span></td>
+                      <td className="p-4"><span className="text-sm" style={{ color: mutedText }}>{file.date}</span></td>
                       <td className="p-4">
-                        <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ color: '#B8B1A8' }}>
+                        <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ color: mutedText }}>
                           <MoreHorizontal size={16} />
                         </button>
                       </td>
