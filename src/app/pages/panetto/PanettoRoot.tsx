@@ -5,15 +5,15 @@ import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Link } from 'react-router';
 import { useTheme } from '../../contexts/ThemeContext';
 
-export function PaniteRoot() {
+export function PanettoRoot() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
 
   const navLinks = [
-    { path: '/panite', label: 'Home' },
-    { path: '/panite/menu', label: 'Menu' },
-    { path: '/panite/about', label: 'About' },
-    { path: '/panite/gallery', label: 'Gallery' },
+    { path: '/panetto', label: 'Home' },
+    { path: '/panetto/menu', label: 'Menu' },
+    { path: '/panetto/about', label: 'About' },
+    { path: '/panetto/contact', label: 'Contact' },
   ];
 
   return (
@@ -27,9 +27,9 @@ export function PaniteRoot() {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20 lg:h-24">
-            <Link to="/panite" className="flex flex-col">
-              <span className="text-3xl lg:text-4xl font-bold" style={{ color: '#8B7355' }}>
-                Panite
+            <Link to="/panetto" className="flex flex-col">
+              <span className="font-['Great_Vibes'] text-3xl lg:text-4xl" style={{ color: '#8B7355' }}>
+                Panetto
               </span>
               <span className="text-xs tracking-widest uppercase" style={{ color: '#B8966B' }}>
                 Artisan Bakery

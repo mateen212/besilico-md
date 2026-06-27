@@ -32,8 +32,11 @@ import { ReportsDashboard } from "./pages/platform/ReportsDashboard";
 import { CustomerPortal } from "./pages/customer/CustomerPortal";
 import { BranchManagerDashboard } from "./pages/manager/BranchManagerDashboard";
 import { EmployeeDashboard } from "./pages/employee/EmployeeDashboard";
-import { PaniteRoot } from "./pages/panite/PaniteRoot";
-import { PaniteHome } from "./pages/panite/PaniteHome";
+import { PanettoRoot } from "./pages/panetto/PanettoRoot";
+import { PanettoHome } from "./pages/panetto/PanettoHome";
+import { PanettoMenu } from "./pages/panetto/PanettoMenu";
+import { PanettoAbout } from "./pages/panetto/PanettoAbout";
+import { PanettoContact } from "./pages/panetto/PanettoContact";
 
 // Landing page that shows both brands
 export const router = createBrowserRouter([
@@ -57,12 +60,15 @@ export const router = createBrowserRouter([
     ],
   },
   
-  // Panite (new bakery brand)
+  // Panetto (artisan bakery brand)
   {
-    path: "/panite",
-    Component: PaniteRoot,
+    path: "/panetto",
+    Component: PanettoRoot,
     children: [
-      { index: true, Component: PaniteHome },
+      { index: true, Component: PanettoHome },
+      { path: "menu", Component: PanettoMenu },
+      { path: "about", Component: PanettoAbout },
+      { path: "contact", Component: PanettoContact },
     ],
   },
 

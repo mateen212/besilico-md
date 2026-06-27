@@ -14,10 +14,10 @@ export function Landing() {
       icon: UtensilsCrossed,
     },
     {
-      name: 'Panite',
+      name: 'Panetto',
       tagline: 'Premium Artisan Bakery',
       description: 'Discover European-crafted pastries and artisan breads, baked fresh daily with the finest ingredients.',
-      href: '/panite',
+      href: '/panetto',
       color: '#8B7355',
       accent: '#D4A574',
       icon: Sparkles,
