@@ -1,10 +1,16 @@
 import { motion } from 'motion/react';
 import { Heart, Users, Award, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router';
+import { useTheme } from '../../contexts/ThemeContext';
+import { PanettoFooter } from '../../components/PanettoFooter';
 
 export function PanettoAbout() {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? '#1A1512' : '#F5F1E8';
+  const textColor = isDark ? '#F5F1E8' : '#2D2D2D';
+  
   return (
-    <div className="min-h-screen bg-white pt-24">
+    <div className="min-h-screen pt-24 transition-colors" style={{ backgroundColor: bgColor }}>
       {/* Header */}
       <div className="bg-gradient-to-r from-amber-600 to-amber-700 text-white py-12 px-4">
         <div className="max-w-6xl mx-auto">
@@ -227,6 +233,8 @@ export function PanettoAbout() {
           </motion.div>
         </div>
       </section>
+
+      <PanettoFooter />
     </div>
   );
 }

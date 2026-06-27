@@ -2,6 +2,8 @@ import { motion } from 'motion/react';
 import { ShoppingCart, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router';
 import { useState } from 'react';
+import { useTheme } from '../../contexts/ThemeContext';
+import { PanettoFooter } from '../../components/PanettoFooter';
 
 const menuCategories = [
   {
@@ -123,15 +125,21 @@ const menuCategories = [
 ];
 
 export function PanettoMenu() {
+  const { isDark } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [cart, setCart] = useState<{ name: string; price: string }[]>([]);
+  
+  const bgColor = isDark ? '#1A1512' : '#F5F1E8';
+  const cardBg = isDark ? '#2A2420' : '#FFFFFF';
+  const textColor = isDark ? '#F5F1E8' : '#2D2D2D';
+  const mutedText = isDark ? '#B8966B' : '#A0865F';
 
   const addToCart = (item: { name: string; price: string }) => {
     setCart([...cart, item]);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white pt-24 pb-12">
+    <div className="min-h-screen pt-24 pb-12 transition-colors" style={{ backgroundColor: bgColor }}>
       {/* Header */}
       <div className="bg-gradient-to-r from-amber-600 to-amber-700 text-white py-12 px-4">
         <div className="max-w-6xl mx-auto">
@@ -234,6 +242,8 @@ export function PanettoMenu() {
           </motion.div>
         )}
       </div>
+
+      <PanettoFooter />
     </div>
   );
 }

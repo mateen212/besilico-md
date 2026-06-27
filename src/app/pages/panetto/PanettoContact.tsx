@@ -2,8 +2,15 @@ import { motion } from 'motion/react';
 import { Phone, Mail, MapPin, Clock, Send, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router';
 import { useState } from 'react';
+import { useTheme } from '../../contexts/ThemeContext';
+import { PanettoFooter } from '../../components/PanettoFooter';
 
 export function PanettoContact() {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? '#1A1512' : '#F5F1E8';
+  const cardBg = isDark ? '#2A2420' : '#FFFFFF';
+  const textColor = isDark ? '#F5F1E8' : '#2D2D2D';
+  const mutedText = isDark ? '#B8966B' : '#A0865F';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -309,6 +316,8 @@ export function PanettoContact() {
           </motion.div>
         </div>
       </section>
+
+      <PanettoFooter />
     </div>
   );
 }
